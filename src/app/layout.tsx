@@ -22,9 +22,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${kanit.variable} h-full antialiased`}
+      className={`${kanit.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#e8f4fd] text-zinc-900 font-sans">
+      <body className="flex flex-col bg-[#e8f4fd] text-zinc-900 font-sans">
         <CustomCursor />
         <SmoothScroll>
           {children}

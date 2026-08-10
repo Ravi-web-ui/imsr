@@ -33,10 +33,10 @@ export default function AdmissionsTicker() {
       <div className="animate-marquee whitespace-nowrap flex items-center">
         {items.map((text, idx) => (
           <div key={idx} className="flex items-center">
-            <span className="font-display font-medium text-white text-[26px] sm:text-[34px] md:text-[40px] leading-none tracking-wider">
+            <span className="font-display font-medium text-white text-[35px] leading-none tracking-normal">
               {text}
             </span>
-            <span className="text-brand-secondary text-[18px] sm:text-[24px] md:text-[30px] mx-3 select-none font-medium">
+            <span className="text-brand-secondary text-[26px] mx-3 select-none font-medium">
               ✦
             </span>
           </div>
@@ -44,10 +44,10 @@ export default function AdmissionsTicker() {
         {/* Duplicate the items for seamless loop */}
         {items.map((text, idx) => (
           <div key={`dup-${idx}`} className="flex items-center">
-            <span className="font-display font-medium text-white text-[26px] sm:text-[34px] md:text-[40px] leading-none tracking-wider">
+            <span className="font-display font-medium text-white text-[35px] leading-none tracking-normal">
               {text}
             </span>
-            <span className="text-brand-secondary text-[18px] sm:text-[24px] md:text-[30px] mx-3 select-none font-medium">
+            <span className="text-brand-secondary text-[26px] mx-3 select-none font-medium">
               ✦
             </span>
           </div>

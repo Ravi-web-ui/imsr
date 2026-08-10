@@ -4,8 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "@/components/Button";
 import SplitText from "@/components/SplitText";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // REUSABLE PLAYGROUND COMPONENTS
 
@@ -231,7 +234,7 @@ function BeforeAfterSlider() {
       </div>
       {/* Slider bar */}
       <div className="absolute top-0 bottom-0 z-20 w-1 bg-white pointer-events-none" style={{ left: `${sliderPos}%` }}>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center text-zinc-800 text-xs font-bold border border-zinc-200">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center text-zinc-800 text-xs font-medium border border-zinc-200">
           ↔
         </div>
       </div>
@@ -281,7 +284,7 @@ function ImageFollowBadge({ src, alt }: { src: string; alt: string }) {
       <div className="absolute inset-0 bg-black/10 group-hover:bg-black/25 transition-all duration-300" />
       <div
         ref={badgeRef}
-        className="absolute top-0 left-0 w-16 h-16 bg-[#00bcda] text-white font-sans font-semibold text-xs tracking-wider uppercase rounded-full flex items-center justify-center pointer-events-none scale-0 opacity-0 -translate-x-1/2 -translate-y-1/2 shadow-xl shadow-[#00bcda]/40 z-20"
+        className="absolute top-0 left-0 w-16 h-16 bg-[#00bcda] text-white font-sans font-light text-xs tracking-wider rounded-full flex items-center justify-center pointer-events-none scale-0 opacity-0 -translate-x-1/2 -translate-y-1/2 shadow-xl shadow-[#00bcda]/40 z-20"
       >
         View
       </div>
@@ -310,7 +313,7 @@ function AccordionItem({ title, content }: { title: string; content: string }) {
         className="w-full flex items-center justify-between font-display font-medium text-base text-zinc-800 text-left hover:text-[#00bcda] transition-colors cursor-pointer"
       >
         <span>{title}</span>
-        <span className={`transform transition-transform duration-300 text-xs font-bold`}>
+        <span className={`transform transition-transform duration-300 text-xs font-medium`}>
           {isOpen ? "➖" : "➕"}
         </span>
       </button>
@@ -356,6 +359,7 @@ export default function DesignSystem() {
   const blurTextRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const dsRevealContainerRef = useRef<HTMLDivElement>(null);
 
   // Text Animations effect
   useEffect(() => {
@@ -417,6 +421,57 @@ export default function DesignSystem() {
     }
   }, [activeTab, scrollTriggerSim]);
 
+  // GSAP Double-Translation Reveal (Cameron Knight style) for images tab
+  useEffect(() => {
+    if (activeTab === "images" && dsRevealContainerRef.current) {
+      const container = dsRevealContainerRef.current;
+      const img = container.querySelector(".reveal-img-ds");
+      if (img) {
+        gsap.killTweensOf([container, img]);
+        
+        // Reset state
+        gsap.set(container, { autoAlpha: 0, xPercent: -100 });
+        gsap.set(img, { xPercent: 100, scale: 1.3 });
+
+        // ScrollTrigger reveal
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          }
+        });
+        tl.set(container, { autoAlpha: 1 });
+        tl.to(container, { xPercent: 0, duration: 1.5, ease: "power2.out" });
+        tl.to(img, { xPercent: 0, scale: 1, duration: 1.5, ease: "power2.out" }, "<");
+      }
+    }
+  }, [activeTab]);
+
+  const rerunImageReveal = () => {
+    if (dsRevealContainerRef.current) {
+      const container = dsRevealContainerRef.current;
+      const img = container.querySelector(".reveal-img-ds");
+      if (img) {
+        gsap.killTweensOf([container, img]);
+        
+        gsap.set(container, { autoAlpha: 0 });
+        
+        const tl = gsap.timeline();
+        tl.set(container, { autoAlpha: 1 });
+        tl.fromTo(container, 
+          { xPercent: -100 },
+          { xPercent: 0, duration: 1.5, ease: "power2.out" }
+        );
+        tl.fromTo(img,
+          { xPercent: 100, scale: 1.3 },
+          { xPercent: 0, scale: 1, duration: 1.5, ease: "power2.out" },
+          "<"
+        );
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans pb-24">
       {/* Top Header Bar */}
@@ -426,13 +481,13 @@ export default function DesignSystem() {
             <path d="M15 15 L50 85 L85 15 M30 30 L50 70 L70 30" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round"/>
             <circle cx="50" cy="20" r="8" fill="#e1523d" />
           </svg>
-          <span className="font-display font-medium text-xl md:text-2xl text-white tracking-wide uppercase">
+          <span className="font-display font-medium text-xl md:text-2xl text-white tracking-wide">
             IMSR Showcase Guide
           </span>
         </div>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 border border-zinc-700 hover:border-white text-zinc-300 hover:text-white px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 border border-zinc-700 hover:border-white text-zinc-300 hover:text-white px-5 py-2.5 rounded-full text-xs font-light tracking-wider transition-all cursor-pointer"
         >
           Back to Homepage
         </Link>
@@ -443,7 +498,7 @@ export default function DesignSystem() {
         
         {/* LEFT TABS NAVIGATION */}
         <aside className="lg:col-span-3 flex flex-col gap-2">
-          <p className="font-sans font-bold text-[10px] uppercase tracking-widest text-zinc-400 mb-2 pl-3">
+          <p className="font-sans font-medium text-[10px] tracking-widest text-zinc-400 mb-2 pl-3">
             Dashboard Categories
           </p>
           {[
@@ -457,7 +512,7 @@ export default function DesignSystem() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-3 px-5 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer text-left border ${
+              className={`flex items-center gap-3 px-5 py-3 rounded-full text-xs font-light tracking-wider transition-all cursor-pointer text-left border ${
                 activeTab === tab.id
                   ? "bg-brand-primary text-white border-transparent shadow-md shadow-brand-primary/10"
                   : "bg-white hover:bg-zinc-100 text-zinc-650 hover:text-zinc-950 border-zinc-200"
@@ -476,10 +531,10 @@ export default function DesignSystem() {
           {activeTab === "buttons" && (
             <div className="bg-white rounded-[2rem] border border-zinc-150 p-8 md:p-12 shadow-sm flex flex-col gap-10">
               <div>
-                <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#00bcda] mb-2 block">
+                <span className="font-sans font-medium text-xs tracking-widest text-[#00bcda] mb-2 block">
                   Category 1
                 </span>
-                <h2 className="font-display font-medium text-3xl text-zinc-900 uppercase">
+                <h2 className="font-display font-medium text-3xl text-zinc-900">
                   Buttons Playground
                 </h2>
                 <div className="w-12 h-1 bg-[#00bcda] mt-4 rounded-full" />
@@ -536,17 +591,17 @@ export default function DesignSystem() {
             <div className="bg-white rounded-[2rem] border border-zinc-150 p-8 md:p-12 shadow-sm flex flex-col gap-10">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                  <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#00bcda] mb-2 block">
+                  <span className="font-sans font-medium text-xs tracking-widest text-[#00bcda] mb-2 block">
                     Category 2
                   </span>
-                  <h2 className="font-display font-medium text-3xl text-zinc-900 uppercase">
+                  <h2 className="font-display font-medium text-3xl text-zinc-900">
                     Typography Animations
                   </h2>
                   <div className="w-12 h-1 bg-[#00bcda] mt-4 rounded-full" />
                 </div>
                 <button
                   onClick={() => setTextTrigger(!textTrigger)}
-                  className="bg-brand-primary text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full cursor-pointer hover:bg-brand-primary/90 transition-colors"
+                  className="bg-brand-primary text-white text-xs font-light tracking-wider px-4 py-2 rounded-full cursor-pointer hover:bg-brand-primary/90 transition-colors"
                 >
                   Rerun Animations: {textTrigger ? "Active" : "Reset"}
                 </button>
@@ -557,21 +612,21 @@ export default function DesignSystem() {
                 
                 {/* Bounce staggers */}
                 <div className="border border-zinc-100 p-8 rounded-[2rem] bg-zinc-50 flex flex-col gap-2 items-center text-center">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400">
+                  <span className="font-sans font-light text-[9px] tracking-wider text-zinc-400">
                     A. SplitText Character Wave Shift
                   </span>
-                  <h3 className="font-display font-medium text-3xl sm:text-4xl text-zinc-900 uppercase leading-none">
+                  <h3 className="font-display font-medium text-3xl sm:text-4xl text-zinc-900 leading-none">
                     <SplitText text="Wave Color Shift" active={textTrigger} />
                   </h3>
                 </div>
 
                 {/* Line Mask Reveal */}
                 <div className="border border-zinc-100 p-8 rounded-[2rem] bg-zinc-50 flex flex-col gap-2 items-center text-center">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400">
+                  <span className="font-sans font-light text-[9px] tracking-wider text-zinc-400">
                     B. Mask Line Reveal (Overflow Hidden)
                   </span>
                   <div className="overflow-hidden py-1">
-                    <h3 ref={maskTextRef} className="font-display font-medium text-3xl sm:text-4xl text-zinc-900 uppercase leading-none">
+                    <h3 ref={maskTextRef} className="font-display font-medium text-3xl sm:text-4xl text-zinc-900 leading-none">
                       Reveal Lines from Under
                     </h3>
                   </div>
@@ -579,41 +634,41 @@ export default function DesignSystem() {
 
                 {/* Character Blur Reveal */}
                 <div className="border border-zinc-100 p-8 rounded-[2rem] bg-zinc-50 flex flex-col gap-2 items-center text-center">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400">
+                  <span className="font-sans font-light text-[9px] tracking-wider text-zinc-400">
                     C. Blur-in text reveal
                   </span>
-                  <h3 ref={blurTextRef} className="font-display font-medium text-3xl sm:text-4xl text-zinc-900 uppercase leading-none">
+                  <h3 ref={blurTextRef} className="font-display font-medium text-3xl sm:text-4xl text-zinc-900 leading-none">
                     Character Blur Reveal
                   </h3>
                 </div>
 
                 {/* Typewriter */}
                 <div className="border border-zinc-100 p-8 rounded-[2rem] bg-zinc-50 flex flex-col gap-2 items-center text-center">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400">
+                  <span className="font-sans font-light text-[9px] tracking-wider text-zinc-400">
                     D. Typewriter Sequential Effect
                   </span>
-                  <h3 className="font-display font-medium text-3xl text-zinc-900 uppercase leading-none">
+                  <h3 className="font-display font-medium text-3xl text-zinc-900 leading-none">
                     {textTrigger ? <Typewriter text="Strategic School Management Portal" /> : "Reset State"}
                   </h3>
                 </div>
 
                 {/* Shimmer gradient */}
                 <div className="border border-zinc-100 p-8 rounded-[2rem] bg-zinc-50 flex flex-col gap-2 items-center text-center">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400">
+                  <span className="font-sans font-light text-[9px] tracking-wider text-zinc-400">
                     E. Shimmering Text Gradient
                   </span>
-                  <h3 className="text-gradient-shimmer font-display font-medium text-3xl sm:text-4xl uppercase leading-none">
+                  <h3 className="text-gradient-shimmer font-display font-medium text-3xl sm:text-4xl leading-none">
                     Future Varsity Portals
                   </h3>
                 </div>
 
                 {/* Ticker marquee */}
                 <div className="border border-zinc-100 p-6 rounded-[2rem] bg-zinc-900 text-white flex flex-col gap-3 overflow-hidden select-none">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-500 text-center">
+                  <span className="font-sans font-light text-[9px] tracking-wider text-zinc-500 text-center">
                     F. Loop Text Marquee
                   </span>
                   <div className="w-full overflow-hidden flex whitespace-nowrap py-2 border-y border-zinc-800">
-                    <div className="animate-marquee flex gap-12 font-display text-lg uppercase tracking-widest text-[#00bcda]">
+                    <div className="animate-marquee flex gap-12 font-display text-lg tracking-widest text-[#00bcda]">
                       <span>Admissions Open 2026-27</span>
                       <span>•</span>
                       <span>Future Varsity MBA</span>
@@ -638,17 +693,17 @@ export default function DesignSystem() {
             <div className="bg-white rounded-[2rem] border border-zinc-150 p-8 md:p-12 shadow-sm flex flex-col gap-10">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                  <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#00bcda] mb-2 block">
+                  <span className="font-sans font-medium text-xs tracking-widest text-[#00bcda] mb-2 block">
                     Category 3
                   </span>
-                  <h2 className="font-display font-medium text-3xl text-zinc-900 uppercase">
+                  <h2 className="font-display font-medium text-3xl text-zinc-900">
                     Cards & Hovers Library
                   </h2>
                   <div className="w-12 h-1 bg-[#00bcda] mt-4 rounded-full" />
                 </div>
                 <button
                   onClick={() => setCardTrigger(!cardTrigger)}
-                  className="bg-brand-primary text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full cursor-pointer hover:bg-brand-primary/90 transition-colors"
+                  className="bg-brand-primary text-white text-xs font-light tracking-wider px-4 py-2 rounded-full cursor-pointer hover:bg-brand-primary/90 transition-colors"
                 >
                   Rerun Card Entry: {cardTrigger ? "Active" : "Reset"}
                 </button>
@@ -659,7 +714,7 @@ export default function DesignSystem() {
                 
                 {/* 1. Minimal Shadow Card with Lift */}
                 <div className="card-stagger-item border border-zinc-100 rounded-[2rem] bg-zinc-50 p-6 flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 hover:bg-white transition-all duration-350 select-none">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400">A. Minimal Lift card</span>
+                  <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-400">A. Minimal Lift card</span>
                   <h4 className="font-display font-medium text-lg text-zinc-900">Service Optimization</h4>
                   <p className="text-zinc-550 text-xs leading-relaxed font-light">
                     Staggered cards reveal and lift on hover by applying custom margin and drop shadow transitions.
@@ -669,7 +724,7 @@ export default function DesignSystem() {
                 {/* 2. Glassmorphic card */}
                 <div className="card-stagger-item rounded-[2rem] bg-zinc-900/90 text-white p-6 flex flex-col gap-4 border border-zinc-800 backdrop-blur-md relative overflow-hidden select-none">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-[#00bcda]/10 rounded-full blur-xl pointer-events-none" />
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-500">B. Glassmorphism Card</span>
+                  <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-500">B. Glassmorphism Card</span>
                   <h4 className="font-display font-medium text-lg">Digital Portal MBA</h4>
                   <p className="text-zinc-300 text-xs leading-relaxed font-light">
                     Clean frosted background overlays for premium statistics, badges, or dashboard metrics.
@@ -678,13 +733,13 @@ export default function DesignSystem() {
 
                 {/* 3. 3D Tilt Card */}
                 <div className="card-stagger-item flex flex-col gap-2">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-450 pl-2">C. 3D Mouse Tilt</span>
+                  <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-450 pl-2">C. 3D Mouse Tilt</span>
                   <Image3DTilt src="/images/hero-slider/stadium_background.jpg" alt="Stadium Tilt" />
                 </div>
 
                 {/* 4. 3D Flip Card */}
                 <div className="card-stagger-item flex flex-col gap-2">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-450 pl-2">D. 3D Card Flip</span>
+                  <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-450 pl-2">D. 3D Card Flip</span>
                   <FlipCard />
                 </div>
 
@@ -693,7 +748,7 @@ export default function DesignSystem() {
                   <Image src="/images/hero-slider/stadium_background.jpg" alt="Zoom background" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent z-10" />
                   <div className="absolute bottom-8 left-8 right-8 text-white z-20 flex flex-col gap-2">
-                    <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-[#00bcda]">E. Zoom & Reveal Service Card</span>
+                    <span className="font-sans font-medium text-[9px] tracking-wider text-[#00bcda]">E. Zoom & Reveal Service Card</span>
                     <h4 className="font-display font-medium text-xl">Event Broadcast PGD</h4>
                     <p className="text-xs text-zinc-300 max-w-md font-light leading-relaxed opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-350">
                       Learn operational guidelines for digital streaming, camera layouts, and sports network production.
@@ -711,17 +766,17 @@ export default function DesignSystem() {
               
               {/* Image effects */}
               <div>
-                <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#00bcda] mb-2 block">
+                <span className="font-sans font-medium text-xs tracking-widest text-[#00bcda] mb-2 block">
                   Category 4
                 </span>
-                <h2 className="font-display font-medium text-3xl text-zinc-900 uppercase mb-8">
+                <h2 className="font-display font-medium text-3xl text-zinc-900 mb-8">
                   Image & Content Effects
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Before/After slider */}
                   <div className="md:col-span-2 flex flex-col gap-3">
-                    <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-450 pl-2">
+                    <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-450 pl-2">
                       A. Before/After Image Comparison Slider
                     </span>
                     <BeforeAfterSlider />
@@ -732,7 +787,7 @@ export default function DesignSystem() {
 
                   {/* Circular Clip-path zoom */}
                   <div className="flex flex-col gap-3">
-                    <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-450 pl-2">
+                    <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-450 pl-2">
                       B. Circular Zoom Reveal Clip-path
                     </span>
                     <div className="image-circle-reveal-container w-full aspect-[4/3] bg-zinc-950 rounded-[2rem] overflow-hidden relative shadow-md select-none">
@@ -746,7 +801,7 @@ export default function DesignSystem() {
 
                   {/* Cursor Overlay Badge Follower */}
                   <div className="flex flex-col gap-3">
-                    <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-450 pl-2">
+                    <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-450 pl-2">
                       C. Floating Follower Overlays
                     </span>
                     <ImageFollowBadge src="/images/hero-slider/stadium_background.jpg" alt="Stadium follower" />
@@ -754,12 +809,40 @@ export default function DesignSystem() {
                       Hover the card to attach a floating "View" badge follower directly onto your cursor coordinate line inside bounds.
                     </p>
                   </div>
+
+                  {/* GSAP Double Translation Scroll Reveal */}
+                  <div className="md:col-span-2 flex flex-col gap-3 border-t border-zinc-100 pt-6">
+                    <div className="flex justify-between items-center pr-2">
+                      <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-450 pl-2">
+                        D. GSAP ScrollTrigger Double-Translation Reveal (Cameron Knight Style)
+                      </span>
+                      <button
+                        onClick={rerunImageReveal}
+                        className="bg-brand-primary text-white text-[10px] font-light px-3 py-1.5 rounded-full cursor-pointer hover:bg-brand-primary/90 transition-colors select-none"
+                      >
+                        Rerun Reveal Animation
+                      </button>
+                    </div>
+                    <div className="flex justify-center items-center py-6 bg-zinc-50 rounded-[2rem] overflow-hidden">
+                      <div ref={dsRevealContainerRef} className="relative w-full max-w-[480px] aspect-[16/10] overflow-hidden rounded-2xl reveal-container-ds invisible shadow-sm">
+                        <Image
+                          src="/images/hero-slider/stadium_background.jpg"
+                          alt="GSAP reveal show"
+                          fill
+                          className="object-cover reveal-img-ds"
+                        />
+                      </div>
+                    </div>
+                    <p className="text-zinc-550 text-xs font-light px-2">
+                      As the image enters the viewport, the container slides from left-to-right (`xPercent: -100` to `0%`) while the image counter-slides from right-to-left (`xPercent: 100` to `0%`) and scales down from `1.3` to `1.0`. This mask wipe effect is standard for any editorial/content section images.
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {/* Text & Accordions */}
               <div className="border-t border-zinc-100 pt-10">
-                <h3 className="font-display font-medium text-xl text-zinc-900 mb-6 uppercase tracking-wider">
+                <h3 className="font-display font-medium text-xl text-zinc-900 mb-6 tracking-wider">
                   D. Text & Accordion Content Library
                 </h3>
                 
@@ -781,16 +864,16 @@ export default function DesignSystem() {
                     {/* Animated counters */}
                     <div className="grid grid-cols-2 gap-4 text-center">
                       <div className="p-4 bg-zinc-50 border border-zinc-100 rounded-2xl">
-                        <span className="font-display font-semibold text-3xl text-brand-primary block">
+                        <span className="font-display font-medium text-3xl text-brand-primary block">
                           <CountUp end={85} />%
                         </span>
-                        <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold block mt-1">Placement Rate</span>
+                        <span className="text-[10px] text-zinc-400 tracking-widest font-light block mt-1">Placement Rate</span>
                       </div>
                       <div className="p-4 bg-zinc-50 border border-zinc-100 rounded-2xl">
-                        <span className="font-display font-semibold text-3xl text-brand-primary block">
+                        <span className="font-display font-medium text-3xl text-brand-primary block">
                           <CountUp end={120} />+
                         </span>
-                        <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold block mt-1">Franchise Partners</span>
+                        <span className="text-[10px] text-zinc-400 tracking-widest font-light block mt-1">Franchise Partners</span>
                       </div>
                     </div>
 
@@ -799,7 +882,7 @@ export default function DesignSystem() {
                       {["School", "Biomechanics", "MBA", "Physiology", "Media", "Recruiting"].map((tag, idx) => (
                         <span
                           key={idx}
-                          className="px-3 py-1 bg-zinc-100 hover:bg-[#00bcda] hover:text-white rounded-full text-xs font-semibold tracking-wider uppercase transition-colors duration-200 cursor-pointer select-none text-zinc-500"
+                          className="px-3 py-1 bg-zinc-100 hover:bg-[#00bcda] hover:text-white rounded-full text-xs font-light tracking-wider transition-colors duration-200 cursor-pointer select-none text-zinc-500"
                         >
                           #{tag}
                         </span>
@@ -817,17 +900,17 @@ export default function DesignSystem() {
             <div className="bg-white rounded-[2rem] border border-zinc-150 p-8 md:p-12 shadow-sm flex flex-col gap-10">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                  <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#00bcda] mb-2 block">
+                  <span className="font-sans font-medium text-xs tracking-widest text-[#00bcda] mb-2 block">
                     Category 5
                   </span>
-                  <h2 className="font-display font-medium text-3xl text-zinc-900 uppercase">
+                  <h2 className="font-display font-medium text-3xl text-zinc-900">
                     Scrolls & Tickers
                   </h2>
                   <div className="w-12 h-1 bg-[#00bcda] mt-4 rounded-full" />
                 </div>
                 <button
                   onClick={() => setScrollTriggerSim(!scrollTriggerSim)}
-                  className="bg-brand-primary text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full cursor-pointer hover:bg-brand-primary/90 transition-colors"
+                  className="bg-brand-primary text-white text-xs font-light tracking-wider px-4 py-2 rounded-full cursor-pointer hover:bg-brand-primary/90 transition-colors"
                 >
                   Play Scroll Simulation: {scrollTriggerSim ? "Active" : "Reset"}
                 </button>
@@ -837,7 +920,7 @@ export default function DesignSystem() {
                 
                 {/* Scroll progress bar simulation */}
                 <div className="border border-zinc-100 p-6 rounded-[2rem] bg-zinc-50 flex flex-col gap-3">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400">
+                  <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-400">
                     A. Scroll progress line indicator
                   </span>
                   <div className="w-full bg-zinc-200 h-2 rounded-full overflow-hidden">
@@ -851,7 +934,7 @@ export default function DesignSystem() {
                 {/* Simulated Pinned Section */}
                 <div className="border border-zinc-100 p-8 rounded-[2rem] bg-zinc-900 text-white flex flex-col md:flex-row gap-6 items-center overflow-hidden min-h-[220px]">
                   <div className="md:w-1/3 border-r border-zinc-800 pr-4">
-                    <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-500 block mb-2">B. Scroll Pinning</span>
+                    <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-500 block mb-2">B. Scroll Pinning</span>
                     <h4 className="font-display font-medium text-lg text-[#00bcda]">Sticky Panel Content</h4>
                     <p className="text-[11px] text-zinc-400 leading-relaxed font-light mt-2">
                       Left column locks in viewport space while right-side masonry card arrays scroll vertically.
@@ -867,11 +950,11 @@ export default function DesignSystem() {
 
                 {/* Logo carousel ticker */}
                 <div className="border border-zinc-100 p-6 rounded-[2rem] bg-zinc-50 overflow-hidden select-none">
-                  <span className="font-sans font-bold text-[9px] uppercase tracking-wider text-zinc-400 block text-center mb-4">
+                  <span className="font-sans font-medium text-[9px] tracking-wider text-zinc-400 block text-center mb-4">
                     C. Automated Logo Ticker
                   </span>
                   <div className="w-full overflow-hidden flex whitespace-nowrap py-2 border-y border-zinc-200">
-                    <div className="animate-marquee flex gap-12 font-display text-base font-semibold uppercase text-zinc-400">
+                    <div className="animate-marquee flex gap-12 font-display text-base font-light text-zinc-400">
                       <span>Future Varsity</span>
                       <span>•</span>
                       <span>IMSR Alliance</span>
@@ -895,10 +978,10 @@ export default function DesignSystem() {
           {activeTab === "tokens" && (
             <div className="bg-white rounded-[2rem] border border-zinc-150 p-8 md:p-12 shadow-sm flex flex-col gap-10">
               <div>
-                <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#00bcda] mb-2 block">
+                <span className="font-sans font-medium text-xs tracking-widest text-[#00bcda] mb-2 block">
                   Category 6
                 </span>
-                <h2 className="font-display font-medium text-3xl text-zinc-900 uppercase">
+                <h2 className="font-display font-medium text-3xl text-zinc-900">
                   Design Tokens & Colors
                 </h2>
                 <div className="w-12 h-1 bg-[#00bcda] mt-4 rounded-full" />
@@ -917,7 +1000,7 @@ export default function DesignSystem() {
                   <div key={idx} className="border border-zinc-100 rounded-2xl p-4 flex flex-col gap-3">
                     <div className={`w-full aspect-[3/1] rounded-xl ${color.usage} shadow-inner border border-zinc-100`} />
                     <div>
-                      <span className="font-sans font-semibold text-xs text-zinc-800 block">{color.name}</span>
+                      <span className="font-sans font-medium text-xs text-zinc-800 block">{color.name}</span>
                       <code className="text-[10px] font-mono text-zinc-400 select-all">{color.hex}</code>
                     </div>
                   </div>
