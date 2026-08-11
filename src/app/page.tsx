@@ -871,6 +871,9 @@ export default function Home2() {
         </div>
       </section>
 
+      {/* 6. OUR ACADEMIC PROGRAMS */}
+      <Programs />
+
       {/* 5. STATS OVERVIEW SECTION */}
       <section className="py-20 md:py-24 bg-[#f9fafb] relative z-20 overflow-hidden border-t border-zinc-100">
         <div className="max-w-7xl mx-auto px-[15px]">
@@ -1000,9 +1003,6 @@ export default function Home2() {
           </div>
         </div>
       </section>
-
-      {/* 6. OUR ACADEMIC PROGRAMS */}
-      <Programs />
 
       {/* 7. GLOBAL FOOTER */}
       <Footer />
