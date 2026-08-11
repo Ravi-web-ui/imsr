@@ -206,8 +206,8 @@ export default function Programs() {
       
       {/* Top Banner (Teal block) - Full Width Section */}
       <div 
-        className="text-white pt-16 pb-32 relative overflow-hidden w-full"
-        style={{ background: "linear-gradient(123deg, rgba(0, 50, 81, 1) 0%, rgba(0, 38, 33, 1) 100%)" }}
+        className="text-white pt-16 pb-60 relative overflow-hidden w-full"
+        style={{ background: "linear-gradient(123deg, rgb(6 153 176) 0%, rgb(0, 38, 33) 100%)" }}
       >
         {/* Background Decoration Wrapper */}
         <div className="absolute inset-0 pointer-events-none z-0 opacity-40">
@@ -272,7 +272,7 @@ export default function Programs() {
       </div>
 
       {/* Cards Section (Slides over teal banner bottom edge without being cut off) - Full Width Section */}
-      <div className="w-full px-[30px] relative -mt-20 z-20">
+      <div className="w-full px-[30px] relative -mt-40 z-20">
         
         {/* Left Arrow Button centered vertically in card, placed absolute in relative container wrapper */}
         <button 
