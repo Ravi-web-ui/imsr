@@ -454,7 +454,7 @@ export default function Programs() {
                 {/* Explore Pill Button matching mockup */}
                 <div className="flex justify-start mt-8">
                   <a 
-                    href="#programs"
+                    href="#"
                     className="px-6 py-2.5 rounded-full border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-all duration-300 font-sans font-medium text-[13px] flex items-center gap-2 select-none cursor-pointer text-zinc-800"
                   >
                     <span>Explore Programme</span>
