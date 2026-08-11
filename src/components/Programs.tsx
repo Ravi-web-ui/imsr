@@ -202,7 +202,7 @@ export default function Programs() {
   };
 
   return (
-    <section id="programs" className="w-full pb-32 bg-white relative z-20 font-display select-none">
+    <section id="programs" className="w-full pb-0 bg-white relative z-20 font-display select-none">
       
       {/* Top Banner (Teal block) - Full Width Section */}
       <div 

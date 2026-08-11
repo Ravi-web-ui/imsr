@@ -875,7 +875,7 @@ export default function Home2() {
       <Programs />
 
       {/* 5. STATS OVERVIEW SECTION */}
-      <section className="py-20 md:py-24 bg-[#f9fafb] relative z-20 overflow-hidden border-t border-zinc-100">
+      <section className="py-20 md:py-24 bg-white relative z-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-[15px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
