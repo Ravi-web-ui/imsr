@@ -207,7 +207,7 @@ export default function Programs() {
       {/* Top Banner (Teal block) - Full Width Section */}
       <div 
         className="text-white pt-16 pb-32 relative overflow-hidden w-full"
-        style={{ background: "linear-gradient(123deg, rgba(0, 98, 159, 1) 0%, rgba(0, 76, 66, 1) 100%)" }}
+        style={{ background: "linear-gradient(123deg, rgba(0, 50, 81, 1) 0%, rgba(0, 38, 33, 1) 100%)" }}
       >
         {/* Background Decoration Wrapper */}
         <div className="absolute inset-0 pointer-events-none z-0 opacity-40">
