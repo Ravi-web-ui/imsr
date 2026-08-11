@@ -1012,7 +1012,7 @@ export default function Home2() {
         style={{ background: "linear-gradient(28deg, rgba(7, 116, 130, 1) 0%, rgba(0, 59, 77, 1) 48%, rgb(79 7 65) 100%)" }}
       >
         <div className="max-w-7xl mx-auto px-[15px]">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center w-full">
             <MaskedHeading
               text="STUDENT LIFE"
               mediaType="video"
@@ -1030,11 +1030,13 @@ export default function Home2() {
               stagger={0.17}
               align="center"
               weight={700}
-              tracking={-0.03}
-              lineHeight={1.06}
+              tracking={0.02}
+              lineHeight={0.85}
               textScale={0.15}
               className="font-display uppercase"
-              style={{ fontSize: "250px" }}
+              style={{ fontSize: "clamp(48px, 12vw, 250px)" }}
+              startTime={15}
+              endTime={80}
             />
             
             <p className="mt-8 text-zinc-400 font-sans font-light leading-relaxed max-w-2xl text-center text-[17px]">

@@ -26,6 +26,8 @@ const MaskedHeading = ({
   textScale = 0.115,
   className = '',
   style = {},
+  startTime = 0,
+  endTime = 0,
   ...rest
 }) => {
   const rootRef = useRef(null);
@@ -323,7 +325,21 @@ const MaskedHeading = ({
                 muted
                 loop
                 playsInline
-                onPlay={() => setVideoLoaded(true)}
+                onPlay={(e) => {
+                  setVideoLoaded(true);
+                  if (startTime > 0 && e.currentTarget.currentTime < startTime) {
+                    e.currentTarget.currentTime = startTime;
+                  }
+                }}
+                onTimeUpdate={(e) => {
+                  const video = e.currentTarget;
+                  if (startTime > 0 && video.currentTime < startTime) {
+                    video.currentTime = startTime;
+                  }
+                  if (endTime > 0 && video.currentTime >= endTime) {
+                    video.currentTime = startTime;
+                  }
+                }}
                 style={{ opacity: videoLoaded ? 1 : 0 }}
               />
             ) : (
