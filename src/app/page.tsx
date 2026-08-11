@@ -1033,8 +1033,7 @@ export default function Home2() {
               tracking={0.02}
               lineHeight={0.85}
               textScale={0.15}
-              className="font-display uppercase"
-              style={{ fontSize: "clamp(48px, 12vw, 250px)" }}
+              className="font-display uppercase text-[100px] md:text-[250px]"
               startTime={15}
               endTime={80}
             />
