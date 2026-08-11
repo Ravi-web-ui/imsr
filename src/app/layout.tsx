@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Kanit } from "next/font/google";
+import { Kanit, Geist } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const kanit = Kanit({
   variable: "--font-kanit",
@@ -22,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${kanit.variable} antialiased`}
+      className={cn("antialiased", kanit.variable, "font-sans", geist.variable)}
     >
       <body className="flex flex-col bg-[#e8f4fd] text-zinc-900 font-sans">
         <CustomCursor />

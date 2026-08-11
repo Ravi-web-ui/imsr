@@ -3,7 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import SplitText from "@/components/SplitText";
-import { Clock, BookOpen, GraduationCap, X, Check, ArrowRight } from "lucide-react";
+import { Clock, BookOpen, GraduationCap } from "lucide-react";
+import MoltenMetal from "./MoltenMetal";
 
 interface ProgramItem {
   title: string;
@@ -115,109 +116,13 @@ const programsData: ProgramItem[] = [
 
 export default function Programs() {
   const [activeCategory, setActiveCategory] = useState<string>("B.B.A.");
-  const [selectedProgram, setSelectedProgram] = useState<ProgramItem | null>(null);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", campus: "Malad" });
   const scrollRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const pausedRef = useRef(false);
 
   // Filter items
   const filteredPrograms = programsData.filter((p) => p.category === activeCategory);
 
-  // Background particle effect logic
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      alpha: number;
-    }> = [];
-
-    const resizeCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * (window.devicePixelRatio || 1);
-      canvas.height = rect.height * (window.devicePixelRatio || 1);
-      ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
-      initParticles(rect.width, rect.height);
-    };
-
-    const initParticles = (width: number, height: number) => {
-      particles = [];
-      const particleCount = Math.min(Math.floor((width * height) / 16000), 55);
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          radius: Math.random() * 2 + 1,
-          alpha: Math.random() * 0.45 + 0.15
-        });
-      }
-    };
-
-    const animate = () => {
-      const rect = canvas.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
-
-      ctx.clearRect(0, 0, width, height);
-
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-        ctx.fill();
-      });
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
-          const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-          if (dist < 110) {
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            const lineAlpha = (1 - dist / 110) * 0.10;
-            ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    resizeCanvas();
-    animate();
-
-    window.addEventListener("resize", resizeCanvas);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", resizeCanvas);
-    };
-  }, []);
 
   // Auto-sliding & pause-on-hover effect
   useEffect(() => {
@@ -304,17 +209,32 @@ export default function Programs() {
         className="text-white pt-16 pb-32 relative overflow-hidden w-full"
         style={{ background: "linear-gradient(123deg, rgba(0, 98, 159, 1) 0%, rgba(0, 76, 66, 1) 100%)" }}
       >
-        <div className="max-w-7xl mx-auto px-[30px] relative">
-        
-          {/* Background Decoration Wrapper */}
-          <div className="absolute inset-0 pointer-events-none">
-            {/* Interactive Particle canvas background */}
-            <canvas 
-              ref={canvasRef} 
-              className="absolute inset-0 w-full h-full opacity-60"
-            />
-          </div>
+        {/* Background Decoration Wrapper */}
+        <div className="absolute inset-0 pointer-events-none z-0 opacity-40">
+          <MoltenMetal
+            color1="#00bcda"
+            color2="#00937e"
+            color3="#FFFFFF"
+            colorMode="molten"
+            speed={0.35}
+            scale={4}
+            detail={3}
+            glow={1.6}
+            coreSize={0.1}
+            swirl={1}
+            fold={-0.2}
+            blackPoint={0.05}
+            brightness={1.3}
+            opacity={1}
+            grain={true}
+            grainIntensity={0.05}
+            mouseInteraction={true}
+            mouseStrength={0.3}
+          />
+        </div>
 
+        <div className="max-w-7xl mx-auto px-[30px] relative z-10">
+        
           {/* Content wrapper */}
           <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center text-center">
             
