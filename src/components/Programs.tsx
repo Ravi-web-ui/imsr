@@ -239,7 +239,7 @@ export default function Programs() {
           <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center text-center">
             
             <h2 className="font-display font-medium text-4xl sm:text-5xl text-white tracking-tight mt-8">
-              <SplitText text="Our Programmes" active={true} />
+              <SplitText text="Our Programs" active={true} />
             </h2>
             
             <p className="mt-6 text-white/80 font-sans font-light leading-relaxed max-w-2xl text-[16px]">

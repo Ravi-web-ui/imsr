@@ -71,8 +71,6 @@ const MaskedHeading = ({
 
     if (style && style.fontSize) {
       root.style.fontSize = style.fontSize;
-    } else {
-      root.style.fontSize = `${clamp(root.clientWidth * s.textScale, 20, 200).toFixed(1)}px`;
     }
 
     const cs = window.getComputedStyle(measure);

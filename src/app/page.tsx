@@ -10,6 +10,7 @@ import SplitText from "@/components/SplitText";
 import AdmissionsTicker from "@/components/AdmissionsTicker";
 import Programs from "@/components/Programs";
 import MaskedHeading from "@/components/MaskedHeading";
+import ExperientialLearning from "@/components/ExperientialLearning";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -546,7 +547,7 @@ export default function Home2() {
                 {/* Programmes column (w-4/12 span 4) */}
                 <div className="col-span-4 flex flex-col items-start px-8 border-l border-zinc-200">
                   <span className="font-kanit font-medium text-[16px] capitalize mb-[20px] text-[#222] tracking-normal">
-                    Programmes
+                    Programs
                   </span>
                   <div className="flex flex-col gap-3 w-full">
                     {MEGA_MENU_DATA[activeMegaCategory]?.map((program, idx) => {
@@ -1037,59 +1038,8 @@ export default function Home2() {
               startTime={15}
               endTime={80}
             />
-            
-            <p className="mt-8 text-zinc-400 font-sans font-light leading-relaxed max-w-2xl text-center text-[17px]">
-              Dive into a vibrant ecosystem at IMSR where academic excellence meets an energetic student culture. From sports arenas and creative clubs to industry hackathons, life on campus is designed to inspire, engage, and empower.
-            </p>
           </div>
-
-          {/* Student Life Grid */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <div className="relative group overflow-hidden aspect-[4/3] border border-zinc-800/80 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <Image 
-                src="/images/hero-slider/hero-slider1.jpg" 
-                alt="Sports & Athletics" 
-                fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent opacity-90 transition-opacity duration-300" />
-              <div className="absolute bottom-6 left-6 z-10">
-                <span className="text-xs font-display font-medium text-brand-secondary uppercase tracking-widest">Active Campus</span>
-                <h3 className="text-xl font-display font-semibold text-white mt-1">Sports & Athletics</h3>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="relative group overflow-hidden aspect-[4/3] border border-zinc-800/80 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <Image 
-                src="/images/campus_explore.jpg" 
-                alt="Clubs & Culture" 
-                fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent opacity-90 transition-opacity duration-300" />
-              <div className="absolute bottom-6 left-6 z-10">
-                <span className="text-xs font-display font-medium text-brand-secondary uppercase tracking-widest">Creative Hubs</span>
-                <h3 className="text-xl font-display font-semibold text-white mt-1">Cultural Festivals & Clubs</h3>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="relative group overflow-hidden aspect-[4/3] border border-zinc-800/80 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
-              <Image 
-                src="/images/hero-slider/hero-slider2.jpg" 
-                alt="Seminars & Collaboration" 
-                fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent opacity-90 transition-opacity duration-300" />
-              <div className="absolute bottom-6 left-6 z-10">
-                <span className="text-xs font-display font-medium text-brand-secondary uppercase tracking-widest">Leadership</span>
-                <h3 className="text-xl font-display font-semibold text-white mt-1">Seminars & Guest Lectures</h3>
-              </div>
-            </div>
-          </div>
+          <ExperientialLearning />
         </div>
       </section>
 
