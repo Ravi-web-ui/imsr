@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import SplitText from "@/components/SplitText";
 import AdmissionsTicker from "@/components/AdmissionsTicker";
 import Programs from "@/components/Programs";
+import MaskedHeading from "@/components/MaskedHeading";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -1000,6 +1001,88 @@ export default function Home2() {
 
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* 6. STUDENT LIFE SECTION */}
+      <section id="student-life" className="py-24 bg-zinc-950 text-white relative z-20 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-[15px]">
+          <div className="flex flex-col items-center">
+            <MaskedHeading
+              text="STUDENT LIFE"
+              mediaType="video"
+              src="/reel.mp4"
+              poster="/reel-poster.jpg"
+              fillScale={1.25}
+              parallax={26}
+              reveal="rise"
+              trigger="view"
+              drift={18}
+              brightness={1}
+              saturation={1}
+              grayscale={false}
+              duration={1.1}
+              stagger={0.17}
+              align="center"
+              weight={700}
+              tracking={-0.03}
+              lineHeight={1.06}
+              textScale={0.15}
+              className="font-display uppercase"
+            />
+            
+            <p className="mt-8 text-zinc-400 font-sans font-light leading-relaxed max-w-2xl text-center text-[17px]">
+              Dive into a vibrant ecosystem at IMSR where academic excellence meets an energetic student culture. From sports arenas and creative clubs to industry hackathons, life on campus is designed to inspire, engage, and empower.
+            </p>
+          </div>
+
+          {/* Student Life Grid */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <div className="relative group overflow-hidden aspect-[4/3] border border-zinc-800/80 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+              <Image 
+                src="/images/hero-slider/hero-slider1.jpg" 
+                alt="Sports & Athletics" 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent opacity-90 transition-opacity duration-300" />
+              <div className="absolute bottom-6 left-6 z-10">
+                <span className="text-xs font-display font-medium text-brand-secondary uppercase tracking-widest">Active Campus</span>
+                <h3 className="text-xl font-display font-semibold text-white mt-1">Sports & Athletics</h3>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="relative group overflow-hidden aspect-[4/3] border border-zinc-800/80 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+              <Image 
+                src="/images/campus_explore.jpg" 
+                alt="Clubs & Culture" 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent opacity-90 transition-opacity duration-300" />
+              <div className="absolute bottom-6 left-6 z-10">
+                <span className="text-xs font-display font-medium text-brand-secondary uppercase tracking-widest">Creative Hubs</span>
+                <h3 className="text-xl font-display font-semibold text-white mt-1">Cultural Festivals & Clubs</h3>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="relative group overflow-hidden aspect-[4/3] border border-zinc-800/80 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+              <Image 
+                src="/images/hero-slider/hero-slider2.jpg" 
+                alt="Seminars & Collaboration" 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent opacity-90 transition-opacity duration-300" />
+              <div className="absolute bottom-6 left-6 z-10">
+                <span className="text-xs font-display font-medium text-brand-secondary uppercase tracking-widest">Leadership</span>
+                <h3 className="text-xl font-display font-semibold text-white mt-1">Seminars & Guest Lectures</h3>
+              </div>
+            </div>
           </div>
         </div>
       </section>
