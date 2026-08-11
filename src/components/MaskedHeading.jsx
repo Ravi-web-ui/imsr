@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
@@ -37,6 +37,7 @@ const MaskedHeading = ({
   const glyphRefs = useRef([]);
   const tweenRef = useRef(null);
   const offsetRef = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const clipId = `mh-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   const words = useMemo(() => String(text).split(/\s+/).filter(Boolean), [text]);
@@ -83,6 +84,15 @@ const MaskedHeading = ({
       glyph.style.letterSpacing = cs.letterSpacing;
     }
     place();
+
+    // Force browser to recalculate clip-path by toggling it
+    const clipped = revealRef.current?.firstElementChild;
+    if (clipped) {
+      const orig = clipped.style.clipPath;
+      clipped.style.clipPath = 'none';
+      void clipped.offsetHeight; // force reflow
+      clipped.style.clipPath = orig;
+    }
   }, [place]);
 
   useEffect(() => {
@@ -255,7 +265,7 @@ const MaskedHeading = ({
       }}
       {...rest}
     >
-      <span ref={measureRef} className="text-transparent">
+      <span ref={measureRef} className="text-transparent" style={{ color: 'transparent' }}>
         {words.map((word, i) => (
           <span
             key={`${word}-${i}`}
@@ -263,6 +273,7 @@ const MaskedHeading = ({
               wordRefs.current[i] = el;
             }}
             className="inline-block whitespace-pre [&:not(:last-child)]:after:content-['\\00a0']"
+            style={{ color: 'transparent' }}
           >
             {word}
             <i
@@ -275,7 +286,11 @@ const MaskedHeading = ({
         ))}
       </span>
 
-      <svg className="absolute w-0 h-0 overflow-hidden" aria-hidden="true" focusable="false">
+      <svg 
+        style={{ position: 'absolute', width: '100%', height: '100%', left: -9999, top: -9999, pointerEvents: 'none' }}
+        aria-hidden="true" 
+        focusable="false"
+      >
         <defs>
           <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
             {words.map((word, i) => (
@@ -294,16 +309,18 @@ const MaskedHeading = ({
 
       <span ref={revealRef} className="absolute inset-0 block pointer-events-none">
         <span className="absolute inset-0 block" style={{ clipPath: `url(#${clipId})` }}>
-          <span ref={mediaRef} className="absolute inset-0 block [will-change:transform,filter]">
+          <span ref={mediaRef} className="absolute inset-0 block [will-change:transform,filter] bg-white">
             {mediaType === 'video' ? (
               <video
-                className="block w-full h-full object-cover select-none"
+                className="block w-full h-full object-cover select-none transition-opacity duration-500"
                 src={src}
                 poster={poster}
                 autoPlay
                 muted
                 loop
                 playsInline
+                onPlay={() => setVideoLoaded(true)}
+                style={{ opacity: videoLoaded ? 1 : 0 }}
               />
             ) : (
               <img className="block w-full h-full object-cover select-none" src={src} alt="" draggable={false} />

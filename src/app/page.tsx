@@ -1012,8 +1012,8 @@ export default function Home2() {
             <MaskedHeading
               text="STUDENT LIFE"
               mediaType="video"
-              src="/reel.mp4"
-              poster="/reel-poster.jpg"
+              src="/images/video.mp4"
+              poster="/images/campus_explore.jpg"
               fillScale={1.25}
               parallax={26}
               reveal="rise"
