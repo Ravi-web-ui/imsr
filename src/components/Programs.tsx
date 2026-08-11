@@ -238,8 +238,8 @@ export default function Programs() {
           {/* Content wrapper */}
           <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center text-center">
             
-            <h2 className="font-display font-medium text-4xl sm:text-5xl text-white tracking-tight uppercase mt-8">
-              <SplitText text="Our Popular Courses" active={true} />
+            <h2 className="font-display font-medium text-4xl sm:text-5xl text-white tracking-tight mt-8">
+              <SplitText text="Our Programmes" active={true} />
             </h2>
             
             <p className="mt-6 text-white/80 font-sans font-light leading-relaxed max-w-2xl text-[16px]">
@@ -254,7 +254,7 @@ export default function Programs() {
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`px-6 py-2.5 rounded-full text-xs font-display font-medium uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none ${
+                    className={`px-6 py-2.5 rounded-full text-sm font-display font-medium uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none ${
                       activeCategory === cat
                         ? "bg-white text-zinc-950 border-white shadow-md"
                         : "bg-transparent hover:bg-white/10 text-white border-white/30"
