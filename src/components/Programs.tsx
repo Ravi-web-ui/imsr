@@ -388,12 +388,7 @@ export default function Programs() {
           {[...filteredPrograms, ...filteredPrograms].map((program, idx) => (
             <div
               key={idx}
-              onClick={() => {
-                setSelectedProgram(program);
-                setFormSubmitted(false);
-                setFormData({ name: "", email: "", phone: "", campus: "Malad" });
-              }}
-              className={`program-card flex-shrink-0 w-[285px] sm:w-[320px] md:w-[calc((100%-24px)/2.25)] lg:w-[calc((100%-72px)/3.4)] ${program.bg} overflow-hidden hover:-translate-y-2 hover:shadow-xl cursor-pointer transition-all duration-355 flex flex-col`}
+              className={`program-card flex-shrink-0 w-[285px] sm:w-[320px] md:w-[calc((100%-24px)/2.25)] lg:w-[calc((100%-72px)/3.4)] ${program.bg} overflow-hidden hover:-translate-y-2 transition-all duration-355 flex flex-col`}
               style={{ 
                 scrollSnapAlign: "start",
                 border: "1px solid #2222222e",
@@ -458,178 +453,21 @@ export default function Programs() {
 
                 {/* Explore Pill Button matching mockup */}
                 <div className="flex justify-start mt-8">
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedProgram(program);
-                      setFormSubmitted(false);
-                      setFormData({ name: "", email: "", phone: "", campus: "Malad" });
-                    }}
-                    className="px-6 py-2.5 rounded-full border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-all duration-300 font-sans font-medium text-[13px] flex items-center gap-2 select-none cursor-pointer bg-transparent text-zinc-850"
+                  <a 
+                    href="#programs"
+                    className="px-6 py-2.5 rounded-full border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-all duration-300 font-sans font-medium text-[13px] flex items-center gap-2 select-none cursor-pointer text-zinc-800"
                   >
                     <span>Explore Programme</span>
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      {/* GORGEOUS INQUIRY MODAL */}
-      {selectedProgram && (
-        <div 
-          className="fixed inset-0 bg-zinc-950/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 sm:p-6 transition-all duration-300"
-          onClick={() => setSelectedProgram(null)}
-        >
-          <div 
-            className="relative w-full max-w-lg bg-white rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 border border-zinc-100 flex flex-col gap-5 transition-transform duration-300 scale-100"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Exit widget */}
-            <button
-              onClick={() => setSelectedProgram(null)}
-              className="absolute top-5 right-5 text-zinc-400 hover:text-zinc-700 transition-colors p-1 rounded-full hover:bg-zinc-100 cursor-pointer"
-              aria-label="Close details"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Context tag */}
-            <div>
-              <span className="px-3 py-1 rounded-full text-[11px] font-display font-medium uppercase tracking-wider bg-brand-primary/10 text-brand-primary">
-                {selectedProgram.category} Specialization
-              </span>
-            </div>
-
-            {/* Title */}
-            <div className="flex flex-col gap-2">
-              <h3 className="font-display font-semibold text-2xl text-zinc-950 leading-tight">
-                {selectedProgram.title}
-              </h3>
-              <p className="text-zinc-500 font-sans text-sm font-light leading-relaxed">
-                Send an admission inquiry for this program. Our counselor will contact you within 24 hours.
-              </p>
-            </div>
-
-            {/* Program Quick Specs */}
-            <div className="grid grid-cols-3 gap-3 bg-zinc-50 p-4 rounded-2xl border border-zinc-200/50">
-              <div className="flex flex-col gap-1 items-center text-center">
-                <Clock className="w-4 h-4 text-brand-primary" />
-                <span className="font-sans text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">Duration</span>
-                <span className="font-sans font-medium text-xs text-zinc-800 line-clamp-1">{selectedProgram.duration.split(" ")[0]} {selectedProgram.duration.split(" ")[1] || "Years"}</span>
-              </div>
-              <div className="flex flex-col gap-1 items-center text-center border-x border-zinc-200">
-                <BookOpen className="w-4 h-4 text-[#00bcda]" />
-                <span className="font-sans text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">Format</span>
-                <span className="font-sans font-medium text-xs text-zinc-800">{selectedProgram.format}</span>
-              </div>
-              <div className="flex flex-col gap-1 items-center text-center">
-                <GraduationCap className="w-4 h-4 text-[#00bcda]" />
-                <span className="font-sans text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">Eligibility</span>
-                <span className="font-sans font-medium text-xs text-zinc-800 truncate w-full px-1">{selectedProgram.eligibility}</span>
-              </div>
-            </div>
-
-            {!formSubmitted ? (
-              <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setFormSubmitted(true);
-                }}
-                className="flex flex-col gap-4 mt-2"
-              >
-                {/* Full name input */}
-                <div className="flex flex-col gap-1.5 text-left">
-                  <label htmlFor="name-input" className="text-xs font-sans font-medium text-zinc-700">Full Name</label>
-                  <input
-                    id="name-input"
-                    type="text"
-                    required
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm text-zinc-800 outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all font-sans font-light"
-                  />
-                </div>
-
-                {/* Email input */}
-                <div className="flex flex-col gap-1.5 text-left">
-                  <label htmlFor="email-input" className="text-xs font-sans font-medium text-zinc-700">Email Address</label>
-                  <input
-                    id="email-input"
-                    type="email"
-                    required
-                    placeholder="you@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm text-zinc-800 outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all font-sans font-light"
-                  />
-                </div>
-
-                {/* Phone number input */}
-                <div className="flex flex-col gap-1.5 text-left">
-                  <label htmlFor="phone-input" className="text-xs font-sans font-medium text-zinc-700">Phone Number</label>
-                  <input
-                    id="phone-input"
-                    type="tel"
-                    required
-                    placeholder="+91 XXXXX XXXXX"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm text-zinc-800 outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all font-sans font-light"
-                  />
-                </div>
-
-                {/* Preferred campus select */}
-                <div className="flex flex-col gap-1.5 text-left">
-                  <label htmlFor="campus-select" className="text-xs font-sans font-medium text-zinc-700">Preferred Campus</label>
-                  <select
-                    id="campus-select"
-                    value={formData.campus}
-                    onChange={(e) => setFormData({ ...formData, campus: e.target.value })}
-                    className="w-full bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm text-zinc-800 outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all font-sans font-light"
-                  >
-                    <option value="Malad">Malad Campus (Orlem)</option>
-                    <option value="Bhandup">Bhandup Campus (RADAV)</option>
-                    <option value="Ghatkopar">Ghatkopar Campus (RAV Laxmichand Golwala)</option>
-                  </select>
-                </div>
-
-                {/* Submit button */}
-                <button
-                  type="submit"
-                  className="w-full mt-2 py-3 rounded-xl bg-brand-primary hover:bg-[#004e80] text-white font-sans font-medium text-sm tracking-wide transition-colors flex items-center justify-center gap-2 select-none cursor-pointer border-none"
-                >
-                  <span>Submit Inquiry</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </form>
-            ) : (
-              <div className="flex flex-col items-center text-center gap-4 py-8 animate-in fade-in zoom-in duration-200">
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center border border-emerald-100">
-                  <Check className="w-8 h-8" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <h4 className="font-display font-semibold text-xl text-zinc-950">Inquiry Received!</h4>
-                  <p className="text-zinc-500 font-sans text-sm font-light leading-relaxed max-w-xs mt-1">
-                    Thank you, <strong className="font-medium text-zinc-800">{formData.name}</strong>. Your inquiry for <strong className="font-medium text-zinc-800">{selectedProgram.title}</strong> at our <strong className="font-medium text-zinc-800">{formData.campus}</strong> campus is registered.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedProgram(null)}
-                  className="mt-4 px-6 py-2 rounded-xl border border-zinc-200 hover:bg-zinc-50 text-zinc-700 font-sans font-medium text-xs select-none cursor-pointer"
-                >
-                  Close Window
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
     </section>
   );
