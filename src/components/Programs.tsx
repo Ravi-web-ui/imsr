@@ -386,9 +386,10 @@ export default function Programs() {
           }}
         >
           {[...filteredPrograms, ...filteredPrograms].map((program, idx) => (
-            <div
+            <a
               key={idx}
-              className={`program-card flex-shrink-0 w-[285px] sm:w-[320px] md:w-[calc((100%-24px)/2.25)] lg:w-[calc((100%-72px)/3.4)] ${program.bg} overflow-hidden hover:-translate-y-2 transition-all duration-355 flex flex-col`}
+              href="#"
+              className={`program-card flex-shrink-0 w-[285px] sm:w-[320px] md:w-[calc((100%-24px)/2.25)] lg:w-[calc((100%-72px)/3.4)] ${program.bg} overflow-hidden hover:-translate-y-2 hover:shadow-xl cursor-pointer transition-all duration-355 flex flex-col`}
               style={{ 
                 scrollSnapAlign: "start",
                 border: "1px solid #2222222e",
@@ -453,18 +454,17 @@ export default function Programs() {
 
                 {/* Explore Pill Button matching mockup */}
                 <div className="flex justify-start mt-8">
-                  <a 
-                    href="#"
+                  <div 
                     className="px-6 py-2.5 rounded-full border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-all duration-300 font-sans font-medium text-[13px] flex items-center gap-2 select-none cursor-pointer text-zinc-800"
                   >
                     <span>Explore Programme</span>
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
