@@ -313,6 +313,7 @@ export default function Programs() {
               style={{ 
                 scrollSnapAlign: "start",
                 border: "1px solid #2222222e",
+                borderRadius: "10px",
                 boxShadow: "0 10px 15px -3px #0000000d, 0 4px 6px -4px var(--tw-shadow-color, #0000001a)"
               }}
             >
