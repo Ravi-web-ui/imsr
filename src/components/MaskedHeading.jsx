@@ -67,7 +67,11 @@ const MaskedHeading = ({
     if (!root || !measure) return;
     const s = settingsRef.current;
 
-    root.style.fontSize = `${clamp(root.clientWidth * s.textScale, 20, 200).toFixed(1)}px`;
+    if (style && style.fontSize) {
+      root.style.fontSize = style.fontSize;
+    } else {
+      root.style.fontSize = `${clamp(root.clientWidth * s.textScale, 20, 200).toFixed(1)}px`;
+    }
 
     const cs = window.getComputedStyle(measure);
     for (let i = 0; i < wordRefs.current.length; i += 1) {
@@ -93,7 +97,7 @@ const MaskedHeading = ({
       void clipped.offsetHeight; // force reflow
       clipped.style.clipPath = orig;
     }
-  }, [place]);
+  }, [place, style]);
 
   useEffect(() => {
     const root = rootRef.current;

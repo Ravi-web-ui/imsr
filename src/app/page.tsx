@@ -1006,7 +1006,11 @@ export default function Home2() {
       </section>
 
       {/* 6. STUDENT LIFE SECTION */}
-      <section id="student-life" className="py-24 bg-zinc-950 text-white relative z-20 overflow-hidden">
+      <section 
+        id="student-life" 
+        className="py-24 text-white relative z-20 overflow-hidden"
+        style={{ background: "linear-gradient(28deg, rgba(7, 116, 130, 1) 0%, rgba(0, 59, 77, 1) 48%, rgb(79 7 65) 100%)" }}
+      >
         <div className="max-w-7xl mx-auto px-[15px]">
           <div className="flex flex-col items-center">
             <MaskedHeading
@@ -1030,6 +1034,7 @@ export default function Home2() {
               lineHeight={1.06}
               textScale={0.15}
               className="font-display uppercase"
+              style={{ fontSize: "250px" }}
             />
             
             <p className="mt-8 text-zinc-400 font-sans font-light leading-relaxed max-w-2xl text-center text-[17px]">
