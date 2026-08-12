@@ -11,6 +11,7 @@ import AdmissionsTicker from "@/components/AdmissionsTicker";
 import Programs from "@/components/Programs";
 import MaskedHeading from "@/components/MaskedHeading";
 import ExperientialLearning from "@/components/ExperientialLearning";
+import StatsOverview from "@/components/StatsOverview";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -781,7 +782,7 @@ export default function Home2() {
                     <SplitText text="Studies & Research" />
                   </span>
                 </h2>
-                <p className="mt-6 text-[#333] font-sans font-light leading-relaxed max-w-2xl text-[17px] fade-up-scroll">
+                <p className="mt-6 text-[#333] font-sans font-light leading-relaxed max-w-2xl text-[18px] fade-up-scroll">
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 </p>
               </div>
@@ -877,134 +878,7 @@ export default function Home2() {
       <Programs />
 
       {/* 5. STATS OVERVIEW SECTION */}
-      <section className="py-20 md:py-24 bg-white relative z-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-[15px]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            
-            {/* Left Column: Heading, MU Logo, Inquire button */}
-            <div className="lg:col-span-5 flex flex-col items-start justify-between h-full">
-              <div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-zinc-950 leading-[40px] tracking-tight max-w-lg font-display">
-                  <SplitText text="Lorem Ipsum is simply" /> <br />
-                  <SplitText text="dummy text of the" /> <br />
-                  <SplitText text="printing industry." />
-                </h2>
-                
-                {/* Recognition Badge */}
-                <div className="mt-8 flex items-center gap-4">
-                  <div className="flex flex-col">
-                    <span className="text-sm font-kanit font-light uppercase tracking-wider text-zinc-500">Recognition by</span>
-                    <span className="text-[20px] font-sans font-normal text-zinc-900 mt-0.5">Mumbai University</span>
-                  </div>
-                  {/* Mumbai University logo image */}
-                  <div className="relative w-40 h-40 flex-shrink-0">
-                    <Image
-                      src="/images/home/mumbai-unersity.png"
-                      alt="Mumbai University Logo"
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Inquire Button */}
-              <button 
-                className="group btn-bubble-fill relative overflow-hidden flex items-center justify-between gap-6 px-6 py-2.5 rounded-full border border-[#5a234f] text-[#5a234f] font-kanit font-medium text-[14px] uppercase tracking-wider select-none cursor-pointer mt-8 transition-colors duration-300"
-                onMouseEnter={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  e.currentTarget.style.setProperty('--x', `${x}px`);
-                  e.currentTarget.style.setProperty('--y', `${y}px`);
-                }}
-              >
-                {/* Bubble bg */}
-                <span className="absolute block w-0 h-0 rounded-full bg-[#5a234f] transition-all duration-500 ease-out -translate-x-1/2 -translate-y-1/2 left-[var(--x)] top-[var(--y)] group-hover:w-[320px] group-hover:h-[320px] pointer-events-none z-0" />
-                
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Inquire Now</span>
-                <span className="relative z-10 w-7 h-7 rounded-full bg-[#5a234f] group-hover:bg-white flex items-center justify-center transition-colors duration-300">
-                  <svg
-                    className="w-4.5 h-4.5 text-white group-hover:text-[#5a234f] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
-                </span>
-              </button>
-            </div>
-
-            {/* Right Column: 2x2 Stats Grid */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-12">
-              
-              {/* Stat 1 */}
-              <div className="flex flex-col items-start">
-                <span 
-                  className="text-5xl lg:text-6xl font-medium text-zinc-950 font-display tracking-tight stat-count"
-                  data-target="190"
-                >
-                  190+
-                </span>
-                <div className="h-[1.5px] bg-[#e1523d]/40 mt-3 mb-4 w-full origin-left stat-line" style={{ transform: 'scaleX(0)' }} />
-                <span className="text-[16px] font-display font-medium uppercase tracking-wider text-[#02629e]">Expert Faculty</span>
-                <p className="mt-2 font-kanit text-[17px] text-[#333] font-light leading-relaxed">
-                  Mentors from top industries & academia guide students with real world insights.
-                </p>
-              </div>
-
-              {/* Stat 2 */}
-              <div className="flex flex-col items-start">
-                <span 
-                  className="text-5xl lg:text-6xl font-medium text-zinc-950 font-display tracking-tight stat-count"
-                  data-target="20"
-                >
-                  20+
-                </span>
-                <div className="h-[1.5px] bg-[#e1523d]/40 mt-3 mb-4 w-full origin-left stat-line" style={{ transform: 'scaleX(0)' }} />
-                <span className="text-[16px] font-display font-medium uppercase tracking-wider text-[#02629e]">Campus Partnerships</span>
-                <p className="mt-2 font-kanit text-[17px] text-[#333] font-light leading-relaxed">
-                  Academic presence across India through top tier partner institutions & colleges.
-                </p>
-              </div>
-
-              {/* Stat 3 */}
-              <div className="flex flex-col items-start">
-                <span 
-                  className="text-5xl lg:text-6xl font-medium text-zinc-950 font-display tracking-tight stat-count"
-                  data-target="60"
-                >
-                  60+
-                </span>
-                <div className="h-[1.5px] bg-[#e1523d]/40 mt-3 mb-4 w-full origin-left stat-line" style={{ transform: 'scaleX(0)' }} />
-                <span className="text-[16px] font-display font-medium uppercase tracking-wider text-[#02629e]">Programs</span>
-                <p className="mt-2 font-kanit text-[17px] text-[#333] font-light leading-relaxed">
-                  Curated for careers in Business, Sports, Tech, Design, Wellness & more.
-                </p>
-              </div>
-
-              {/* Stat 4 */}
-              <div className="flex flex-col items-start">
-                <span 
-                  className="text-5xl lg:text-6xl font-medium text-zinc-950 font-display tracking-tight stat-count"
-                  data-target="9"
-                >
-                  9+
-                </span>
-                <div className="h-[1.5px] bg-[#e1523d]/40 mt-3 mb-4 w-full origin-left stat-line" style={{ transform: 'scaleX(0)' }} />
-                <span className="text-[16px] font-display font-medium uppercase tracking-wider text-[#02629e]">Future Varsity Institutes</span>
-                <p className="mt-2 font-kanit text-[17px] text-[#333] font-light leading-relaxed">
-                  Mentors from top industries & academia guide students with real world insights.
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </section>
+      <StatsOverview />
 
       {/* 6. STUDENT LIFE SECTION */}
       <section 

@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import gsap from "gsap";
 import SplitText from "@/components/SplitText";
 import { Clock, BookOpen, GraduationCap } from "lucide-react";
 import MoltenMetal from "./MoltenMetal";
@@ -14,6 +15,27 @@ interface ProgramItem {
   format: string;
   eligibility: string;
   duration: string;
+}
+
+function ProgramCardImage({ src, alt }: { src: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      className="object-cover transition-transform duration-500 hover:scale-105"
+      sizes="(max-width: 768px) 100vw, 350px"
+      onError={() => {
+        setImgSrc("/images/campus_explore.jpg");
+      }}
+    />
+  );
 }
 
 const programsData: ProgramItem[] = [
@@ -68,7 +90,7 @@ const programsData: ProgramItem[] = [
   {
     title: "B.Com. (Hons.) in Business Administration (Marketing Management)",
     category: "B.Com.",
-    image: "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
     bg: "bg-[#e0f2fe]", // Pastel Blue
     format: "On Campus",
     eligibility: "12th Pass-outs",
@@ -122,9 +144,32 @@ export default function Programs() {
   // Filter items
   const filteredPrograms = programsData.filter((p) => p.category === activeCategory);
 
+  // Card entrance animation on category tab click
+  useEffect(() => {
+    if (!scrollRef.current) return;
+    const cards = scrollRef.current.querySelectorAll(".program-card");
+    if (!cards.length) return;
 
+    gsap.fromTo(
+      cards,
+      {
+        opacity: 0,
+        y: 28,
+        scale: 0.94,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.55,
+        stagger: 0.06,
+        ease: "power3.out",
+        clearProps: "transform,opacity",
+      }
+    );
+  }, [activeCategory]);
 
-  // Auto-sliding & pause-on-hover effect
+  // Auto-sliding in continuous loop & pause-on-hover effect
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -138,66 +183,84 @@ export default function Programs() {
 
     container.addEventListener("mouseenter", handleMouseEnter);
     container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("touchstart", handleMouseEnter, { passive: true });
+    container.addEventListener("touchend", handleMouseLeave, { passive: true });
 
     const interval = setInterval(() => {
       if (pausedRef.current) return;
 
-      const card = container.querySelector(".program-card");
+      const card = container.querySelector<HTMLElement>(".program-card");
       if (!card) return;
 
-      const cardWidth = card.clientWidth + 24; // 24 is the flex gap-6
-      const singleSetWidth = cardWidth * filteredPrograms.length;
+      const cardWidth = card.offsetWidth + 24; // 24px gap
+      const maxScroll = container.scrollWidth - container.clientWidth;
 
-      // If we've scrolled past the first set, instantly reset scrollLeft to the first set
-      if (container.scrollLeft >= singleSetWidth - 10) {
-        container.scrollLeft = container.scrollLeft - singleSetWidth;
+      // If reaching the end of the loop, smoothly wrap back to start
+      if (container.scrollLeft >= maxScroll - 20) {
+        container.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+      } else {
+        container.scrollBy({
+          left: cardWidth,
+          behavior: "smooth",
+        });
       }
-
-      // Scroll smoothly forward by one card width
-      container.scrollBy({
-        left: cardWidth,
-        behavior: "smooth"
-      });
-    }, 4000); // Slides every 4 seconds
+    }, 3500); // Slides every 3.5 seconds
 
     return () => {
       clearInterval(interval);
       container.removeEventListener("mouseenter", handleMouseEnter);
       container.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("touchstart", handleMouseEnter);
+      container.removeEventListener("touchend", handleMouseLeave);
     };
   }, [activeCategory, filteredPrograms.length]);
 
-  console.log("Filtered programs count:", filteredPrograms.length, "activeCategory:", activeCategory);
+  const handleTabChange = (cat: string) => {
+    if (activeCategory === cat) return;
+    setActiveCategory(cat);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+    }
+  };
 
   // Scroll function
   const scroll = (direction: "left" | "right") => {
     const container = scrollRef.current;
     if (!container) return;
 
-    const card = container.querySelector(".program-card");
+    const card = container.querySelector<HTMLElement>(".program-card");
     if (!card) return;
 
-    const cardWidth = card.clientWidth + 24; // 24 is the flex gap-6
-    const singleSetWidth = cardWidth * filteredPrograms.length;
+    const cardWidth = card.offsetWidth + 24;
+    const maxScroll = container.scrollWidth - container.clientWidth;
 
     if (direction === "left") {
-      // If we are at the start, instantly reset scrollLeft to the duplicate set copy
-      if (container.scrollLeft <= 5) {
-        container.scrollLeft = singleSetWidth;
+      if (container.scrollLeft <= 10) {
+        container.scrollTo({
+          left: maxScroll,
+          behavior: "smooth",
+        });
+      } else {
+        container.scrollBy({
+          left: -cardWidth,
+          behavior: "smooth",
+        });
       }
-      container.scrollBy({
-        left: -cardWidth,
-        behavior: "smooth"
-      });
     } else {
-      // If we've scrolled past the first set, instantly wrap to the first copy
-      if (container.scrollLeft >= singleSetWidth - 10) {
-        container.scrollLeft = container.scrollLeft - singleSetWidth;
+      if (container.scrollLeft >= maxScroll - 20) {
+        container.scrollTo({
+          left: 0,
+          behavior: "smooth",
+        });
+      } else {
+        container.scrollBy({
+          left: cardWidth,
+          behavior: "smooth",
+        });
       }
-      container.scrollBy({
-        left: cardWidth,
-        behavior: "smooth"
-      });
     }
   };
 
@@ -235,29 +298,31 @@ export default function Programs() {
 
         <div className="max-w-7xl mx-auto px-[30px] relative z-10">
         
-          {/* Content wrapper */}
-          <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center text-center">
+          {/* Content wrapper: 60% Left (Heading & Paragraph) + 40% Right (Filter Buttons) */}
+          <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12 mt-4">
             
-            <h2 className="font-display font-medium text-4xl sm:text-5xl text-white tracking-tight mt-8">
-              <SplitText text="Our Programs" active={true} />
-            </h2>
-            
-            <p className="mt-6 text-white/80 font-sans font-light leading-relaxed max-w-2xl text-[16px]">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
+            {/* Left Column: 60% Width */}
+            <div className="w-full lg:w-[60%] flex flex-col items-start text-left">
+              <h2 className="font-display font-medium text-4xl sm:text-5xl text-white tracking-tight">
+                <SplitText text="Our Programs" active={true} />
+              </h2>
+              
+              <p className="mt-5 text-white/80 font-sans font-light leading-relaxed max-w-2xl text-[18px]">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+              </p>
+            </div>
 
-            {/* Centered Filters Row */}
-            <div className="mt-14 w-full flex justify-center">
-              {/* Filters with margin: 0 auto */}
-              <div className="flex flex-wrap items-center justify-center gap-3 mx-auto" style={{ margin: "0 auto" }}>
+            {/* Right Column: 40% Width (Filter Tabs) */}
+            <div className="w-full lg:w-[40%] flex lg:justify-end items-center">
+              <div className="flex flex-wrap items-center gap-3 relative z-10">
                 {["B.B.A.", "B.Com.", "Digital Media & AI"].map((cat) => (
                   <button
                     key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`px-6 py-2.5 rounded-full text-sm font-display font-medium uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none ${
+                    onClick={() => handleTabChange(cat)}
+                    className={`relative px-6 py-2.5 rounded-full text-sm font-display font-medium uppercase tracking-wider transition-all duration-300 border cursor-pointer select-none ${
                       activeCategory === cat
-                        ? "bg-white text-zinc-950 border-white shadow-md"
-                        : "bg-transparent hover:bg-white/10 text-white border-white/30"
+                        ? "bg-white text-zinc-950 border-white shadow-lg scale-105"
+                        : "bg-transparent hover:bg-white/15 text-white/90 border-white/30 hover:border-white/60"
                     }`}
                   >
                     {cat}
@@ -274,7 +339,7 @@ export default function Programs() {
       {/* Cards Section (Slides over teal banner bottom edge without being cut off) - Full Width Section */}
       <div className="w-full px-[30px] relative -mt-40 z-20">
         
-        {/* Left Arrow Button centered vertically in card, placed absolute in relative container wrapper */}
+        {/* Left Arrow Button */}
         <button 
           onClick={() => scroll("left")}
           className="hidden md:flex absolute left-[10px] top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white text-zinc-800 shadow-md border border-zinc-200 hover:bg-brand-primary hover:text-white hover:border-brand-primary hover:scale-105 items-center justify-center transition-all z-30 cursor-pointer select-none"
@@ -285,7 +350,7 @@ export default function Programs() {
           </svg>
         </button>
 
-        {/* Right Arrow Button centered vertically in card, placed absolute in relative container wrapper */}
+        {/* Right Arrow Button */}
         <button 
           onClick={() => scroll("right")}
           className="hidden md:flex absolute right-[10px] top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white text-zinc-800 shadow-md border border-zinc-200 hover:bg-brand-primary hover:text-white hover:border-brand-primary hover:scale-105 items-center justify-center transition-all z-30 cursor-pointer select-none"
@@ -307,9 +372,9 @@ export default function Programs() {
         >
           {[...filteredPrograms, ...filteredPrograms].map((program, idx) => (
             <a
-              key={idx}
+              key={`${activeCategory}-${idx}`}
               href="#"
-              className={`program-card flex-shrink-0 w-[285px] sm:w-[320px] md:w-[calc((100%-24px)/2.25)] lg:w-[calc((100%-72px)/3.4)] ${program.bg} overflow-hidden hover:-translate-y-2 hover:shadow-xl cursor-pointer transition-all duration-355 flex flex-col`}
+              className={`program-card flex-shrink-0 w-[285px] sm:w-[320px] md:w-[calc((100%-24px)/2.25)] lg:w-[calc((100%-72px)/3.4)] ${program.bg} overflow-hidden hover:-translate-y-2 hover:shadow-xl cursor-pointer transition-all duration-350 flex flex-col`}
               style={{ 
                 scrollSnapAlign: "start",
                 border: "1px solid #2222222e",
@@ -318,13 +383,10 @@ export default function Programs() {
               }}
             >
               {/* Image Container */}
-              <div className="relative w-full h-48 overflow-hidden">
-                <Image
+              <div className="relative w-full h-48 overflow-hidden bg-zinc-100">
+                <ProgramCardImage
                   src={program.image}
-                  alt=""
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                  sizes="(max-w-768px) 100vw, 350px"
+                  alt={program.title}
                 />
               </div>
 
@@ -336,7 +398,7 @@ export default function Programs() {
                   </h3>
                 </div>
 
-                 {/* Details Grid matching mockup */}
+                 {/* Details Grid */}
                  <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-zinc-950/10">
                    {/* Duration (First, Spans Full Width) */}
                    <div className="flex items-start gap-2.5 col-span-2">
@@ -372,7 +434,7 @@ export default function Programs() {
                    </div>
                  </div>
 
-                {/* Explore Pill Button matching mockup */}
+                {/* Explore Pill Button */}
                 <div className="flex justify-start mt-8">
                   <div 
                     className="px-6 py-2.5 rounded-full border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-all duration-300 font-sans font-medium text-[13px] flex items-center gap-2 select-none cursor-pointer text-zinc-800"

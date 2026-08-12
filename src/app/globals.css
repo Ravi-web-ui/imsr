@@ -51,6 +51,26 @@
   animation: marquee 120s linear infinite;
 }
 
+.animate-marquee-avatars {
+  display: flex;
+  width: max-content;
+  animation: marquee 16s linear infinite;
+}
+
+@keyframes spin-continuous {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-continuous {
+  animation: spin-continuous 10s linear infinite;
+  transform-origin: center center;
+}
+
 html {
   overflow-x: hidden;
   max-width: 100vw;

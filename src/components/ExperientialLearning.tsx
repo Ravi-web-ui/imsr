@@ -133,8 +133,8 @@ export default function ExperientialLearning() {
           <h2 className="font-display font-medium text-[48px] sm:text-[70px] text-white tracking-tight leading-[1.0]">
             Experiential <br /> Learning
           </h2>
-          <p className="mt-6 text-cyan-100 font-sans font-light leading-relaxed text-[16px] max-w-md">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
+          <p className="mt-6 text-cyan-100 font-sans font-light leading-relaxed text-[18px] max-w-md">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.
           </p>
           <button 
             className="btn-fill-effect mt-10 flex items-center justify-center gap-3 w-[150px] !h-[150px] rounded-full border border-white/60 bg-transparent text-white hover:text-zinc-950 transition-all duration-[350ms] group cursor-pointer shadow-lg" 
