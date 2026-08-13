@@ -71,6 +71,27 @@
   transform-origin: center center;
 }
 
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-partners-left {
+  display: flex;
+  width: max-content;
+  animation: marquee 80s linear infinite;
+}
+
+.animate-marquee-partners-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 80s linear infinite;
+}
+
 html {
   overflow-x: hidden;
   max-width: 100vw;

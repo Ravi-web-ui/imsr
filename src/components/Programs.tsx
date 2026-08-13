@@ -308,7 +308,7 @@ export default function Programs() {
               </h2>
               
               <p className="mt-5 text-white/80 font-sans font-light leading-relaxed max-w-2xl text-[18px]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                Explore industry-focused undergraduate and diploma programs designed to build strong foundations in business, management, entrepreneurship, marketing, digital media, and artificial intelligence.
               </p>
             </div>
 

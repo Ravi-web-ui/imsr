@@ -12,6 +12,8 @@ import Programs from "@/components/Programs";
 import MaskedHeading from "@/components/MaskedHeading";
 import ExperientialLearning from "@/components/ExperientialLearning";
 import StatsOverview from "@/components/StatsOverview";
+import PlacementPartners from "@/components/PlacementPartners";
+import StudentSuccessStories from "@/components/StudentSuccessStories";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -19,7 +21,7 @@ if (typeof window !== "undefined") {
 }
 
 const TOP_NAV_LINKS = [
-  { name: "Industry Placement", href: "#about" },
+  { name: "Industry Placement", href: "#industry-relations" },
   { name: "Campus Tour", href: "#campus-tour" },
   { name: "Blog & Events", href: "#blog" },
   { name: "Contact Us", href: "#contact" },
@@ -776,14 +778,14 @@ export default function Home2() {
             <div className="lg:col-span-8 flex flex-col justify-between h-full">
               <div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-zinc-950 leading-[40px]">
-                  <SplitText text="Achieve your Goals with" />
+                  <SplitText text="Transform Your Future with" />
                   <span className="text-brand-secondary font-medium mt-2 block">
                     <SplitText text="Institute of Management" /> <br />
                     <SplitText text="Studies & Research" />
                   </span>
                 </h2>
                 <p className="mt-6 text-[#333] font-sans font-light leading-relaxed max-w-2xl text-[18px] fade-up-scroll">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  Build the knowledge, skills, and confidence needed to shape a successful career. Institute of Management Studies & Research offers industry-focused learning, expert guidance, and opportunities to help you turn your ambitions into meaningful professional growth.
                 </p>
               </div>
 
@@ -917,7 +919,13 @@ export default function Home2() {
         </div>
       </section>
 
-      {/* 7. GLOBAL FOOTER */}
+      {/* 7. STUDENT PLACEMENT SUCCESS STORIES */}
+      <StudentSuccessStories />
+
+      {/* 8. INDUSTRY PLACEMENT PARTNERS */}
+      <PlacementPartners />
+
+      {/* 9. GLOBAL FOOTER */}
       <Footer />
 
       {/* 7. FULL-SCREEN SEARCH OVERLAY */}

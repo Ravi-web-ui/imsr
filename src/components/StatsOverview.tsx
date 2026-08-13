@@ -184,14 +184,14 @@ export default function StatsOverview() {
           {/* Left Column: Heading, MU Recognition & Inquire Button */}
           <div className="lg:col-span-5 flex flex-col items-start">
             <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-zinc-950 leading-[40px] tracking-tight max-w-lg font-display">
-                <SplitText text="Lorem Ipsum is simply" /> <br />
-                <SplitText text="dummy text of the" /> <br />
-                <SplitText text="printing industry." />
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-zinc-950 leading-[45px] tracking-tight max-w-lg font-display">
+                <SplitText text="Empowering Students" /> <br />
+                <SplitText text="Through Career" /> <br />
+                <SplitText text="Opportunities" />
               </h2>
               
               <p className="mt-5 text-[#333] font-sans font-light leading-relaxed max-w-lg text-[18px]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.
+                Our placement support helps students connect their academic learning with real-world career opportunities. Through industry exposure, internships, expert guidance, and placement assistance, we prepare students to confidently take their first step into the professional world.
               </p>
               
               {/* Recognition Badge with Compact Clean Spacing */}

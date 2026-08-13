@@ -134,7 +134,7 @@ export default function ExperientialLearning() {
             Experiential <br /> Learning
           </h2>
           <p className="mt-6 text-cyan-100 font-sans font-light leading-relaxed text-[18px] max-w-md">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.
+            Gain practical knowledge through hands-on projects, industry exposure, internships, and real-world experiences that help students develop essential skills and confidently prepare for successful careers.
           </p>
           <button 
             className="btn-fill-effect mt-10 flex items-center justify-center gap-3 w-[150px] !h-[150px] rounded-full border border-white/60 bg-transparent text-white hover:text-zinc-950 transition-all duration-[350ms] group cursor-pointer shadow-lg" 
