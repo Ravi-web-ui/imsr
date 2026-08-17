@@ -548,3 +548,40 @@ body {
     @apply font-sans;
   }
 }
+
+/* Reposition & Scale ChatBot / OpenWidget launcher to 48px (matching Back to Top button) when closed */
+#openwidget-container,
+.openwidget-container,
+#chat-widget-container,
+.chat-widget-container,
+iframe[id^="chat-widget"],
+iframe[id^="openwidget"],
+div[id^="chat-widget"],
+div[id^="openwidget"] {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+#openwidget-container.chatbot-small-launcher,
+.openwidget-container.chatbot-small-launcher,
+#chat-widget-container.chatbot-small-launcher,
+.chat-widget-container.chatbot-small-launcher,
+iframe[id^="chat-widget"].chatbot-small-launcher,
+iframe[id^="openwidget"].chatbot-small-launcher,
+div[id^="chat-widget"].chatbot-small-launcher,
+div[id^="openwidget"].chatbot-small-launcher {
+  transform: scale(0.8) !important;
+  transform-origin: bottom right !important;
+  bottom: 84px !important;
+  right: 0.8% !important;
+}
+
+/* Override font-serif class to use Clash Grotesk and weight 500 */
+.font-serif {
+  font-family: "Clash Grotesk", sans-serif !important;
+  font-weight: 500 !important;
+}
+
+/* Ensure global h2 elements have a base line-height of 48px */
+h2 {
+  line-height: 48px !important;
+}

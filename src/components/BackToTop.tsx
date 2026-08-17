@@ -29,7 +29,7 @@ export default function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 p-3.5 rounded-full border border-white/10 bg-zinc-950/70 backdrop-blur-md text-white/90 shadow-2xl transition-all duration-500 ease-out hover:bg-white hover:border-white hover:text-zinc-950 hover:scale-105 active:scale-95 cursor-pointer ${
+      className={`fixed bottom-6 right-[1%] z-50 p-3.5 rounded-full border border-white/10 bg-zinc-950/70 backdrop-blur-md text-white/90 shadow-2xl transition-all duration-500 ease-out hover:bg-white hover:border-white hover:text-zinc-950 hover:scale-105 active:scale-95 cursor-pointer ${
         isVisible
           ? "opacity-100 translate-y-0 scale-100"
           : "opacity-0 translate-y-6 scale-90 pointer-events-none"

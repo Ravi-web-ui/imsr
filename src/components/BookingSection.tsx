@@ -31,7 +31,7 @@ export default function BookingSection() {
   };
 
   return (
-    <section id="admissions-booking" className="py-24 bg-white text-zinc-950 relative z-20">
+    <section id="admissions-booking" className="py-24 bg-[#fbfbfb] text-zinc-950 relative z-20">
       <div className="max-w-7xl mx-auto px-[15px]">
         {/* Heading */}
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -47,16 +47,24 @@ export default function BookingSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           
           {/* Left Column: Input Form (Primary Brand Color Background) */}
-          <div className="bg-[#00629f] text-white p-8 sm:p-10 rounded-2xl shadow-xl flex flex-col justify-between min-h-[600px] relative overflow-hidden">
-            {/* Background design elements (like target graphic from screenshot) */}
-            <div className="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none transform translate-x-12 -translate-y-12">
-              <svg className="w-full h-full text-white" viewBox="0 0 100 100" fill="currentColor">
-                <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="2" fill="none" />
-                <circle cx="50" cy="50" r="25" stroke="currentColor" strokeWidth="2" fill="none" />
-                <circle cx="50" cy="50" r="10" stroke="currentColor" fill="none" />
-                <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="2" />
-                <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="2" />
-              </svg>
+          <div className="bg-[#00629f] text-white p-8 sm:p-10 rounded-2xl shadow-xl flex flex-col justify-between min-h-[600px] relative overflow-hidden group">
+            {/* Top-Right Overlapping Triangles with elegant hover movement */}
+            <div className="absolute top-0 right-0 w-48 h-48 pointer-events-none overflow-hidden select-none">
+              {/* Outer light triangle */}
+              <div 
+                className="absolute top-0 right-0 w-40 h-40 bg-white/5 transition-transform duration-700 ease-out group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:scale-110" 
+                style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
+              />
+              {/* Middle brand secondary color triangle */}
+              <div 
+                className="absolute top-0 right-0 w-28 h-28 bg-[#00bcda]/10 transition-transform duration-500 ease-out group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:scale-105" 
+                style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
+              />
+              {/* Inner highlight triangle */}
+              <div 
+                className="absolute top-0 right-0 w-16 h-16 bg-white/10 transition-transform duration-300 ease-out group-hover:scale-125" 
+                style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
+              />
             </div>
 
             <div className="relative z-10 w-full">
@@ -164,33 +172,12 @@ export default function BookingSection() {
                     </div>
                   </div>
 
-                  {/* Dummy ReCAPTCHA */}
-                  <div className="bg-zinc-950/20 border border-white/10 rounded-lg p-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        required
-                        id="recaptcha"
-                        className="w-5 h-5 rounded border-white/20 text-[#00bcda] focus:ring-0 focus:ring-offset-0 bg-transparent cursor-pointer"
-                      />
-                      <label htmlFor="recaptcha" className="text-sm font-sans font-light text-white/80 cursor-pointer select-none">
-                        I'm not a robot
-                      </label>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <img
-                        src="https://www.gstatic.com/recaptcha/api2/logo_48.png"
-                        alt="reCAPTCHA"
-                        className="w-6 h-6 object-contain"
-                      />
-                      <span className="text-[9px] text-white/40 mt-0.5">reCAPTCHA</span>
-                    </div>
-                  </div>
+
 
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full bg-[#00bcda] text-zinc-950 hover:bg-white hover:text-zinc-950 font-sans font-medium py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#00bcda]/10 cursor-pointer text-center"
+                    className="w-full bg-white text-zinc-950 hover:bg-zinc-100/95 font-sans font-medium py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.01] active:scale-95 shadow-lg shadow-white/5 cursor-pointer text-center"
                   >
                     Submit Form
                   </button>

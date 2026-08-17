@@ -936,11 +936,11 @@ export default function Home2() {
       {/* 9. INDUSTRY PLACEMENT PARTNERS */}
       <PlacementPartners />
 
-      {/* 10. FREQUENTLY ASKED QUESTIONS */}
-      <FAQs />
-
       {/* ADMISSIONS & CAREER BOOKING SECTION */}
       <BookingSection />
+
+      {/* 10. FREQUENTLY ASKED QUESTIONS */}
+      <FAQs />
 
       {/* 11. GLOBAL FOOTER */}
       <Footer />
