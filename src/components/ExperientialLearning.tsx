@@ -130,7 +130,7 @@ export default function ExperientialLearning() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
         
         <div className="lg:col-span-5 experiential-left w-full">
-          <h2 className="font-display font-medium text-[48px] sm:text-[70px] text-white tracking-tight leading-[65px]">
+          <h2 className="font-display font-medium text-[45px] sm:text-[65px] text-white tracking-tight leading-[65px]">
             Experiential <br /> Learning
           </h2>
           <p className="mt-6 text-cyan-100 font-sans font-light leading-relaxed text-[18px] max-w-md">
