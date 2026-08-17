@@ -14,6 +14,9 @@ import ExperientialLearning from "@/components/ExperientialLearning";
 import StatsOverview from "@/components/StatsOverview";
 import PlacementPartners from "@/components/PlacementPartners";
 import StudentSuccessStories from "@/components/StudentSuccessStories";
+import StudentTestimonials from "@/components/StudentTestimonials";
+import FAQs from "@/components/ui/text-reveal-faqs";
+import CampusActivity from "@/components/CampusActivity";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -919,13 +922,22 @@ export default function Home2() {
         </div>
       </section>
 
+      {/* 6.5. CAMPUS ACTIVITY MASONRY GALLERY */}
+      <CampusActivity />
+
       {/* 7. STUDENT PLACEMENT SUCCESS STORIES */}
       <StudentSuccessStories />
 
-      {/* 8. INDUSTRY PLACEMENT PARTNERS */}
+      {/* 8. STUDENT TESTIMONIAL VIDEO SLIDER */}
+      <StudentTestimonials />
+
+      {/* 9. INDUSTRY PLACEMENT PARTNERS */}
       <PlacementPartners />
 
-      {/* 9. GLOBAL FOOTER */}
+      {/* 10. FREQUENTLY ASKED QUESTIONS */}
+      <FAQs />
+
+      {/* 11. GLOBAL FOOTER */}
       <Footer />
 
       {/* 7. FULL-SCREEN SEARCH OVERLAY */}

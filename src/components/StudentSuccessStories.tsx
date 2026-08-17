@@ -52,10 +52,14 @@ const SUCCESS_STORIES: SuccessStory[] = [
   },
 ];
 
+import gsap from "gsap";
+
 export default function StudentSuccessStories() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const activeCardRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const activeStory = SUCCESS_STORIES[activeIndex];
 
@@ -74,6 +78,58 @@ export default function StudentSuccessStories() {
     setIsPlaying(false);
   }, [activeIndex]);
 
+  // Smooth slide-fade and scale transition when activeIndex changes
+  useEffect(() => {
+    // 1. Animate active video card
+    if (activeCardRef.current) {
+      gsap.fromTo(
+        activeCardRef.current,
+        { opacity: 0.5, scale: 0.95, y: 10 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "power2.out" }
+      );
+
+      // 2. Animate background stacked cards
+      const container = activeCardRef.current.parentElement;
+      if (container) {
+        const leftStacked = container.querySelector(".left-stacked-card");
+        const rightStacked = container.querySelector(".right-stacked-card");
+        if (leftStacked) {
+          gsap.fromTo(
+            leftStacked,
+            { x: -20, opacity: 0, scale: 0.85 },
+            { x: 0, opacity: 0.3, scale: 0.92, duration: 0.5, ease: "power2.out" }
+          );
+        }
+        if (rightStacked) {
+          gsap.fromTo(
+            rightStacked,
+            { x: 20, opacity: 0, scale: 0.85 },
+            { x: 0, opacity: 0.3, scale: 0.92, duration: 0.5, ease: "power2.out" }
+          );
+        }
+      }
+    }
+
+    // 3. Animate right side text elements with clean slide fade
+    if (contentRef.current) {
+      const targets = contentRef.current.querySelectorAll(".animate-slide-fade");
+      if (targets.length) {
+        gsap.killTweensOf(targets);
+        gsap.fromTo(
+          targets,
+          { opacity: 0, y: 15 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            stagger: 0.05,
+            ease: "power2.out"
+          }
+        );
+      }
+    }
+  }, [activeIndex]);
+
   return (
     <section 
       id="success-stories" 
@@ -88,7 +144,7 @@ export default function StudentSuccessStories() {
           {/* Left Side: Video Stack Player */}
           <div className="relative w-[260px] sm:w-[300px] aspect-[3/4.2] shrink-0 z-10 flex items-center justify-center">
             {/* Left Background stacked card */}
-            <div className="absolute left-[-24px] w-[88%] h-[92%] bg-zinc-900 rounded-2xl overflow-hidden opacity-30 blur-[1px] -rotate-6 scale-[0.92] border border-zinc-700/50 pointer-events-none select-none">
+            <div className="left-stacked-card absolute left-[-24px] w-[88%] h-[92%] bg-zinc-900 rounded-2xl overflow-hidden opacity-30 blur-[1px] -rotate-6 scale-[0.92] border border-zinc-700/50 pointer-events-none select-none">
               <Image
                 src={SUCCESS_STORIES[(activeIndex - 1 + SUCCESS_STORIES.length) % SUCCESS_STORIES.length].photo}
                 alt=""
@@ -100,7 +156,7 @@ export default function StudentSuccessStories() {
             </div>
 
             {/* Right Background stacked card */}
-            <div className="absolute right-[-24px] w-[88%] h-[92%] bg-zinc-900 rounded-2xl overflow-hidden opacity-30 blur-[1px] rotate-6 scale-[0.92] border border-zinc-700/50 pointer-events-none select-none">
+            <div className="right-stacked-card absolute right-[-24px] w-[88%] h-[92%] bg-zinc-900 rounded-2xl overflow-hidden opacity-30 blur-[1px] rotate-6 scale-[0.92] border border-zinc-700/50 pointer-events-none select-none">
               <Image
                 src={SUCCESS_STORIES[(activeIndex + 1) % SUCCESS_STORIES.length].photo}
                 alt=""
@@ -113,7 +169,8 @@ export default function StudentSuccessStories() {
             
             {/* Active Video Preview / Player Card */}
             <div 
-              className="relative w-full h-full bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-700 shadow-2xl cursor-pointer group transition-all duration-300 z-10"
+              ref={activeCardRef}
+              className="active-card relative w-full h-full bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-700 shadow-2xl cursor-pointer group transition-all duration-300 z-10"
               onClick={() => {
                 if (!isPlaying) setIsPlaying(true);
               }}
@@ -163,16 +220,20 @@ export default function StudentSuccessStories() {
           </div>
 
           {/* Right Side: Detailed Card Content */}
-          <div className="relative bg-white rounded-2xl p-6 sm:p-10 md:p-12 lg:p-14 flex flex-col justify-between flex-grow shadow-xl z-10 w-full min-h-[350px]">
+          <div 
+            ref={contentRef}
+            className="relative bg-white rounded-2xl p-6 sm:p-10 md:p-12 lg:p-14 flex flex-col justify-between flex-grow shadow-xl z-10 w-full min-h-[350px]"
+          >
             <div>
               {/* Placement Title Inside Card */}
-              <h3 className="font-sans font-light text-2xl sm:text-3xl text-zinc-400 tracking-tight mb-4">
-                Student Success <span className="text-zinc-950 font-serif italic">Stories & Placements</span>
+              <h3 className="animate-slide-fade text-2xl sm:text-3xl tracking-tight mb-4 font-display">
+                <span className="font-medium text-brand-primary">Student Success</span>{" "}
+                <span className="text-zinc-950 font-serif italic">Stories & Placements</span>
               </h3>
 
               {/* Placement Quote (limited to exactly two lines with ellipsis) */}
               <blockquote 
-                className="mt-5 text-zinc-800 font-sans font-light text-[17px] sm:text-[18px] leading-relaxed italic"
+                className="animate-slide-fade mt-5 text-zinc-800 font-sans font-light text-[17px] sm:text-[18px] leading-relaxed italic"
                 style={{
                   display: "-webkit-box",
                   WebkitLineClamp: 2,
@@ -187,7 +248,7 @@ export default function StudentSuccessStories() {
 
             <div className="mt-8 pt-6 border-t border-zinc-150 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               {/* Placement Company Details */}
-              <div className="flex items-center gap-4">
+              <div className="animate-slide-fade flex items-center gap-4">
                 <div className="relative w-14 h-14 rounded-xl border border-zinc-200 bg-white p-1 flex items-center justify-center shrink-0 shadow-sm">
                   <Image
                     src={activeStory.companyLogo}
@@ -208,7 +269,7 @@ export default function StudentSuccessStories() {
               </div>
 
               {/* Package Details */}
-              <div className="flex flex-col items-start sm:items-end">
+              <div className="animate-slide-fade flex flex-col items-start sm:items-end">
                 <span className="text-zinc-400 text-xs font-sans uppercase tracking-wider">Package Placed</span>
                 <span className="text-2xl sm:text-3xl font-display font-semibold text-[#00bcda] mt-0.5">
                   {activeStory.package}

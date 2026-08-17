@@ -73,7 +73,7 @@ export default function PlacementPartners() {
           {[...ROW_1_PARTNERS, ...ROW_1_PARTNERS, ...ROW_1_PARTNERS].map((partner, idx) => (
             <div
               key={`row1-${idx}`}
-              className="bg-white rounded-xl sm:rounded-2xl border border-zinc-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 w-[170px] sm:w-[205px] md:w-[235px] h-[80px] sm:h-[92px] md:h-[102px] flex items-center justify-center p-3 sm:p-4 shrink-0 cursor-pointer"
+              className="bg-white rounded-xl sm:rounded-2xl border border-zinc-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 w-[140px] sm:w-[170px] md:w-[195px] h-[68px] sm:h-[78px] md:h-[86px] flex items-center justify-center p-3 sm:p-4 shrink-0 cursor-pointer"
             >
               <div className="relative w-full h-full">
                 <Image
@@ -81,7 +81,7 @@ export default function PlacementPartners() {
                   alt={partner.name}
                   fill
                   className="object-contain transition-transform duration-300 hover:scale-105"
-                  sizes="(max-width: 768px) 205px, 235px"
+                  sizes="(max-width: 768px) 170px, 195px"
                 />
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function PlacementPartners() {
           {[...ROW_2_PARTNERS, ...ROW_2_PARTNERS, ...ROW_2_PARTNERS].map((partner, idx) => (
             <div
               key={`row2-${idx}`}
-              className="bg-white rounded-xl sm:rounded-2xl border border-zinc-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 w-[170px] sm:w-[205px] md:w-[235px] h-[80px] sm:h-[92px] md:h-[102px] flex items-center justify-center p-3 sm:p-4 shrink-0 cursor-pointer"
+              className="bg-white rounded-xl sm:rounded-2xl border border-zinc-200/90 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 w-[140px] sm:w-[170px] md:w-[195px] h-[68px] sm:h-[78px] md:h-[86px] flex items-center justify-center p-3 sm:p-4 shrink-0 cursor-pointer"
             >
               <div className="relative w-full h-full">
                 <Image
@@ -101,7 +101,7 @@ export default function PlacementPartners() {
                   alt={partner.name}
                   fill
                   className="object-contain transition-transform duration-300 hover:scale-105"
-                  sizes="(max-width: 768px) 205px, 235px"
+                  sizes="(max-width: 768px) 170px, 195px"
                 />
               </div>
             </div>
