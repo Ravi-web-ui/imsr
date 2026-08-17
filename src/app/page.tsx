@@ -18,6 +18,7 @@ import StudentTestimonials from "@/components/StudentTestimonials";
 import FAQs from "@/components/ui/text-reveal-faqs";
 import CampusActivity from "@/components/CampusActivity";
 import BackToTop from "@/components/BackToTop";
+import BookingSection from "@/components/BookingSection";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -937,6 +938,9 @@ export default function Home2() {
 
       {/* 10. FREQUENTLY ASKED QUESTIONS */}
       <FAQs />
+
+      {/* ADMISSIONS & CAREER BOOKING SECTION */}
+      <BookingSection />
 
       {/* 11. GLOBAL FOOTER */}
       <Footer />
