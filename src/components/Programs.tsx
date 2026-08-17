@@ -4,8 +4,44 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import SplitText from "@/components/SplitText";
-import { Clock, BookOpen, GraduationCap } from "lucide-react";
+import { 
+  GraduationCap, 
+  Briefcase, 
+  Award, 
+  Globe, 
+  Tv, 
+  ShoppingBag, 
+  Cpu, 
+  Megaphone, 
+  Lightbulb, 
+  TrendingUp, 
+  BarChart3,
+  BookOpen
+} from "lucide-react";
 import MoltenMetal from "./MoltenMetal";
+
+function getProgramIcon(title: string) {
+  const lower = title.toLowerCase();
+  if (lower.includes("entrepreneurship")) {
+    return { icon: Lightbulb, color: "text-amber-500" };
+  }
+  if (lower.includes("marketing")) {
+    return { icon: Megaphone, color: "text-rose-500" };
+  }
+  if (lower.includes("artificial intelligence") || lower.includes("ai")) {
+    return { icon: Cpu, color: "text-emerald-500" };
+  }
+  if (lower.includes("digital media")) {
+    return { icon: Tv, color: "text-sky-500" };
+  }
+  if (lower.includes("diploma")) {
+    return { icon: ShoppingBag, color: "text-green-500" };
+  }
+  if (lower.includes("b.com")) {
+    return { icon: Briefcase, color: "text-purple-500" };
+  }
+  return { icon: GraduationCap, color: "text-indigo-500" };
+}
 
 interface ProgramItem {
   title: string;
@@ -370,84 +406,42 @@ export default function Programs() {
             scrollSnapType: "x mandatory"
           }}
         >
-          {[...filteredPrograms, ...filteredPrograms].map((program, idx) => (
-            <a
-              key={`${activeCategory}-${idx}`}
-              href="#"
-              className={`program-card flex-shrink-0 w-[285px] sm:w-[320px] md:w-[calc((100%-24px)/2.25)] lg:w-[calc((100%-72px)/3.4)] ${program.bg} overflow-hidden hover:-translate-y-2 hover:shadow-xl cursor-pointer transition-all duration-350 flex flex-col`}
-              style={{ 
-                scrollSnapAlign: "start",
-                border: "1px solid #2222222e",
-                borderRadius: "10px",
-                boxShadow: "0 10px 15px -3px #0000000d, 0 4px 6px -4px var(--tw-shadow-color, #0000001a)"
-              }}
-            >
-              {/* Image Container */}
-              <div className="relative w-full h-48 overflow-hidden bg-zinc-100">
-                <ProgramCardImage
-                  src={program.image}
-                  alt={program.title}
+          {[...filteredPrograms, ...filteredPrograms].map((program, idx) => {
+            const { icon: Icon, color: iconColor } = getProgramIcon(program.title);
+            return (
+              <a
+                key={`${activeCategory}-${idx}`}
+                href="#admissions-booking"
+                className="program-card flex-shrink-0 w-[280px] sm:w-[320px] h-[200px] sm:h-[220px] rounded-xl overflow-hidden relative border border-white/10 group cursor-pointer transition-transform duration-300 hover:scale-[1.03] shadow-lg select-none"
+                style={{ scrollSnapAlign: "start" }}
+              >
+                {/* Background Image with Zoom */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                  style={{ backgroundImage: `url(${program.image})` }}
                 />
-              </div>
+                {/* Dark Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
 
-              {/* Body */}
-              <div className="p-7 flex flex-col justify-between flex-grow">
-                <div className="flex flex-col gap-3">
-                  <h3 className="font-sans font-medium text-[20px] leading-[24px] text-zinc-950">
-                    {program.title} Program
-                  </h3>
-                </div>
+                {/* Icon & Details */}
+                <div className="absolute bottom-5 left-5 right-5 z-20 flex items-end gap-3.5">
+                  {/* Round White Circle Badge */}
+                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 shadow-lg">
+                    <Icon className={`w-5 h-5 ${iconColor}`} />
+                  </div>
 
-                 {/* Details Grid */}
-                 <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-zinc-950/10">
-                   {/* Duration (First, Spans Full Width) */}
-                   <div className="flex items-start gap-2.5 col-span-2">
-                     <div className="w-8 h-8 rounded-full border border-zinc-950/15 flex items-center justify-center flex-shrink-0 text-zinc-800">
-                       <Clock className="w-4 h-4" />
-                     </div>
-                     <div className="flex flex-col">
-                       <span className="font-sans text-zinc-900 leading-none" style={{ fontSize: "15px", fontWeight: 400, letterSpacing: "0" }}>Duration</span>
-                       <span className="font-sans font-light text-zinc-700 leading-tight mt-1" style={{ fontSize: "14px" }}>{program.duration}</span>
-                     </div>
-                   </div>
-
-                   {/* Format */}
-                   <div className="flex items-start gap-2.5">
-                     <div className="w-8 h-8 rounded-full border border-zinc-950/15 flex items-center justify-center flex-shrink-0 text-zinc-800">
-                       <BookOpen className="w-4 h-4" />
-                     </div>
-                     <div className="flex flex-col">
-                       <span className="font-sans text-zinc-900 leading-none" style={{ fontSize: "15px", fontWeight: 400, letterSpacing: "0" }}>Format</span>
-                       <span className="font-sans font-light text-zinc-700 leading-tight mt-1" style={{ fontSize: "14px" }}>{program.format}</span>
-                     </div>
-                   </div>
-
-                   {/* Eligibility */}
-                   <div className="flex items-start gap-2.5">
-                     <div className="w-8 h-8 rounded-full border border-zinc-950/15 flex items-center justify-center flex-shrink-0 text-zinc-800">
-                       <GraduationCap className="w-4 h-4" />
-                     </div>
-                     <div className="flex flex-col">
-                       <span className="font-sans text-zinc-900 leading-none" style={{ fontSize: "15px", fontWeight: 400, letterSpacing: "0" }}>Eligibility</span>
-                       <span className="font-sans font-light text-zinc-700 leading-tight mt-1" style={{ fontSize: "14px" }}>{program.eligibility}</span>
-                     </div>
-                   </div>
-                 </div>
-
-                {/* Explore Pill Button */}
-                <div className="flex justify-start mt-8">
-                  <div 
-                    className="px-6 py-2.5 rounded-full border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-all duration-300 font-sans font-medium text-[13px] flex items-center gap-2 select-none cursor-pointer text-zinc-800"
-                  >
-                    <span>Explore Programme</span>
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                    </svg>
+                  <div className="flex flex-col text-left">
+                    <h3 className="font-display font-medium text-[16px] sm:text-[18px] text-[#eeb816] tracking-tight leading-tight">
+                      {program.title}
+                    </h3>
+                    <span className="font-sans text-[9px] uppercase tracking-wider text-zinc-300/80 font-light mt-0.5">
+                      {activeCategory === "B.B.A." ? "BBA Specialization" : activeCategory === "B.Com." ? "BCom Specialization" : "Digital Specialization"}
+                    </span>
                   </div>
                 </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            );
+          })}
         </div>
       </div>
 
