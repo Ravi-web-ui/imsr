@@ -17,6 +17,7 @@ import StudentSuccessStories from "@/components/StudentSuccessStories";
 import StudentTestimonials from "@/components/StudentTestimonials";
 import FAQs from "@/components/ui/text-reveal-faqs";
 import CampusActivity from "@/components/CampusActivity";
+import BackToTop from "@/components/BackToTop";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -939,6 +940,9 @@ export default function Home2() {
 
       {/* 11. GLOBAL FOOTER */}
       <Footer />
+
+      {/* BACK TO TOP FLOATING BUTTON */}
+      <BackToTop />
 
       {/* 7. FULL-SCREEN SEARCH OVERLAY */}
       {searchOpen && (
