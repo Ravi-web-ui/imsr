@@ -291,7 +291,7 @@ const MaskedHeading = ({
       </span>
 
       <svg 
-        style={{ position: 'absolute', width: '100%', height: '100%', left: -9999, top: -9999, pointerEvents: 'none' }}
+        style={{ position: 'absolute', width: '100%', height: '100%', left: 0, top: 0, pointerEvents: 'none', opacity: 0 }}
         aria-hidden="true" 
         focusable="false"
       >

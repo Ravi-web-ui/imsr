@@ -19,6 +19,10 @@ import FAQs from "@/components/ui/text-reveal-faqs";
 import CampusActivity from "@/components/CampusActivity";
 import BackToTop from "@/components/BackToTop";
 import BookingSection from "@/components/BookingSection";
+import ImageTrail from "@/components/react-bits/ImageTrail";
+import AccordionGallery from "@/components/react-bits/AccordionGallery";
+import StoryScrollSection from "@/components/StoryScrollSection";
+import ExploreCampusHorizontal from "@/components/ExploreCampusHorizontal";
 
 // Register GSAP ScrollTrigger
 if (typeof window !== "undefined") {
@@ -333,6 +337,77 @@ export default function Home2() {
         );
       });
 
+      // Generic ScrollTrigger initializers for Design System reusable classes
+      gsap.utils.toArray(".fade-up").forEach((el: any) => {
+        gsap.fromTo(el, { y: 35, opacity: 0 }, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            once: true
+          }
+        });
+      });
+
+      gsap.utils.toArray(".fade-down").forEach((el: any) => {
+        gsap.fromTo(el, { y: -35, opacity: 0 }, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            once: true
+          }
+        });
+      });
+
+      gsap.utils.toArray(".fade-left").forEach((el: any) => {
+        gsap.fromTo(el, { x: 35, opacity: 0 }, {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            once: true
+          }
+        });
+      });
+
+      gsap.utils.toArray(".fade-right").forEach((el: any) => {
+        gsap.fromTo(el, { x: -35, opacity: 0 }, {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            once: true
+          }
+        });
+      });
+
+      gsap.utils.toArray(".scale-in").forEach((el: any) => {
+        gsap.fromTo(el, { scale: 0.95, opacity: 0 }, {
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            once: true
+          }
+        });
+      });
+
       // Stats counter counting animations
       const stats = document.querySelectorAll('.stat-count');
       stats.forEach((stat) => {
@@ -367,13 +442,14 @@ export default function Home2() {
           }
         });
       });
+
     });
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#e8f4fd] overflow-x-hidden text-zinc-900 font-sans">
+    <div className="relative min-h-screen bg-white overflow-x-hidden text-zinc-900 font-sans">
       
       {/* 1. DUAL-LEVEL NAVBAR */}
       <header
@@ -784,9 +860,27 @@ export default function Home2() {
               <div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-zinc-950 leading-[40px]">
                   <SplitText text="Transform Your Future with" />
-                  <span className="text-brand-secondary font-medium mt-2 block">
-                    <SplitText text="Institute of Management" /> <br />
-                    <SplitText text="Studies & Research" />
+                  <span 
+                    className="font-medium mt-2 block pb-1 fade-up-scroll"
+                    style={{
+                      background: "linear-gradient(135deg, #42d392, #00629f)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text"
+                    }}
+                  >
+                    Institute of Management
+                  </span>
+                  <span 
+                    className="font-medium block pb-1 fade-up-scroll"
+                    style={{
+                      background: "linear-gradient(135deg, #42d392, #00629f)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text"
+                    }}
+                  >
+                    Studies & Research
                   </span>
                 </h2>
                 <p className="mt-6 text-[#333] font-sans font-light leading-relaxed max-w-2xl text-[18px] fade-up-scroll">
@@ -886,6 +980,11 @@ export default function Home2() {
 
       {/* 5. STATS OVERVIEW SECTION */}
       <StatsOverview />
+
+
+
+      {/* NEW: EXPLORE CAMPUS HORIZONTAL PINNED SCROLL SECTION */}
+      <ExploreCampusHorizontal />
 
       {/* 6. STUDENT LIFE SECTION */}
       <section 

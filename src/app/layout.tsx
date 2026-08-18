@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={cn("antialiased", kanit.variable)}
     >
-      <body className="flex flex-col bg-[#e8f4fd] text-zinc-900 font-sans">
+      <body className="flex flex-col bg-white text-zinc-900 font-sans">
         <CustomCursor />
         <SmoothScroll>
           {children}

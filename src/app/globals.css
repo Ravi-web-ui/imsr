@@ -599,7 +599,369 @@ div[id^="openwidget"].chatbot-small-launcher {
   font-weight: 500 !important;
 }
 
-/* Ensure global h2 elements have a base line-height of 48px */
-h2 {
-  line-height: 48px !important;
+/* ==========================================================================
+   IMSR UNIFIED STYLING SYSTEM
+   reusable component-driven classes for clean drag-and-drop developer copying
+   ========================================================================== */
+
+/* 1. BUTTON STYLES */
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: #00629f;
+  color: #ffffff;
+  border: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  user-select: none;
+}
+.primary-button:hover {
+  background-color: #00937e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 147, 126, 0.15);
+}
+
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: #00bcda;
+  color: #ffffff;
+  border: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  user-select: none;
+}
+.secondary-button:hover {
+  background-color: #00937e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 147, 126, 0.15);
+}
+
+.accent-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: #e1523d;
+  color: #ffffff;
+  border: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  user-select: none;
+}
+.accent-button:hover {
+  background-color: #00629f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 98, 159, 0.15);
+}
+
+.dark-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: #111111;
+  color: #ffffff;
+  border: 1px solid transparent;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  user-select: none;
+}
+.dark-button:hover {
+  background-color: #e1523d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(225, 82, 61, 0.15);
+}
+
+.outline-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: transparent;
+  color: #27272a;
+  border: 1px solid #d4d4d8;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  user-select: none;
+}
+.outline-button:hover {
+  background-color: #00937e;
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-1px);
+}
+
+/* 2. TYPOGRAPHY STYLES */
+.standard-h1 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #111111;
+}
+@media (min-width: 640px) {
+  .standard-h1 { font-size: 48px; }
+}
+@media (min-width: 768px) {
+  .standard-h1 { font-size: 60px; }
+}
+
+.standard-h2 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #111111;
+}
+@media (min-width: 640px) {
+  .standard-h2 { font-size: 38px; }
+}
+@media (min-width: 768px) {
+  .standard-h2 { font-size: 48px; }
+}
+
+.standard-h3 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.3;
+  color: #111111;
+}
+@media (min-width: 768px) {
+  .standard-h3 { font-size: 30px; }
+}
+
+.standard-h4 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #111111;
+}
+@media (min-width: 768px) {
+  .standard-h4 { font-size: 22px; }
+}
+
+.custom-h2 {
+  font-family: "Clash Grotesk", sans-serif;
+  font-weight: 500;
+  color: #111111;
+  /* Font size and line-height are customized inline per request overrides */
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #42d392, #00629f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 3. PARAGRAPH STYLES */
+.standard-paragraph {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #3f3f46;
+}
+
+.large-paragraph {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #27272a;
+}
+
+.small-paragraph {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #52525b;
+}
+
+.muted-text {
+  color: #71717a;
+}
+
+.highlighted-text {
+  background-color: rgba(66, 211, 146, 0.12);
+  color: #00629f;
+  font-weight: 400;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+/* 4. CARD STYLES */
+.lift-card {
+  border: 1px solid #e4e4e7;
+  border-radius: 2rem;
+  background-color: #fbfbfb;
+  padding: 1.5rem;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+.lift-card:hover {
+  transform: translateY(-6px);
+  background-color: #ffffff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  border-color: #d4d4d8;
+}
+
+.glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  background: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 5. INPUT STYLES */
+.standard-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  border: 1px solid #d4d4d8;
+  background-color: #ffffff;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: #18181b;
+  transition: all 0.25s ease;
+  outline: none;
+}
+.standard-input:focus {
+  border-color: #00bcda;
+  box-shadow: 0 0 0 3px rgba(0, 188, 218, 0.15);
+}
+
+/* 6. BADGES */
+.badge-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  background-color: #e8f4fd;
+  color: #00629f;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  background-color: rgba(0, 188, 218, 0.1);
+  color: #00bcda;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 11px;
+  border-radius: 9999px;
+  font-family: "Kanit", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  background-color: transparent;
+  color: #52525b;
+  border: 1px solid #d4d4d8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 7. SPACING */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+.content-gap {
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .content-gap {
+    gap: 2rem;
+  }
+}
+
+/* 8. GSAP ANIMATIONS & REVEALS */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.fade-down {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.fade-left {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.fade-right {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.image-reveal-mask {
+  overflow: hidden;
+  position: relative;
+  clip-path: inset(0% 100% 0% 0%);
 }

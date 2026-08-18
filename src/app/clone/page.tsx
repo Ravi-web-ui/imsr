@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Footer from "@/components/Footer";
 import SplitText from "@/components/SplitText";
 import AdmissionsTicker from "@/components/AdmissionsTicker";
-import ProgramsMarquee from "@/components/ProgramsMarquee";
+import ProgramsOriginal from "@/components/ProgramsOriginal";
 import MaskedHeading from "@/components/MaskedHeading";
 import ExperientialLearning from "@/components/ExperientialLearning";
 import StatsOverview from "@/components/StatsOverview";
@@ -371,7 +371,7 @@ export default function ClonePage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#e8f4fd] overflow-x-hidden text-zinc-900 font-sans">
+    <div className="relative min-h-screen bg-white overflow-x-hidden text-zinc-900 font-sans">
       
       {/* 1. DUAL-LEVEL NAVBAR */}
       <header
@@ -879,8 +879,8 @@ export default function ClonePage() {
         </div>
       </section>
 
-      {/* 6. OUR ACADEMIC PROGRAMS (REPLACED WITH CUSTOM MARQUEE COMPONENT) */}
-      <ProgramsMarquee />
+      {/* 6. OUR ACADEMIC PROGRAMS */}
+      <ProgramsOriginal />
 
       {/* 5. STATS OVERVIEW SECTION */}
       <StatsOverview />

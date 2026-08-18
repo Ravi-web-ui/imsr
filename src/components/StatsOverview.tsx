@@ -185,9 +185,31 @@ export default function StatsOverview() {
           <div className="lg:col-span-5 flex flex-col items-start">
             <div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-zinc-950 leading-[45px] tracking-tight max-w-lg font-display">
-                <SplitText text="Empowering Students" /> <br />
-                <SplitText text="Through Career" /> <br />
-                <SplitText text="Opportunities" />
+                <span className="block stat-anim-item text-zinc-950 pb-1">
+                  Empowering Students
+                </span>
+                <span 
+                  className="font-medium mt-1 block pb-1 stat-anim-item"
+                  style={{
+                    background: "linear-gradient(135deg, #42d392, #00629f)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text"
+                  }}
+                >
+                  Through Career
+                </span>
+                <span 
+                  className="font-medium mt-1 block pb-1 stat-anim-item italic"
+                  style={{
+                    background: "linear-gradient(135deg, #42d392, #00629f)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text"
+                  }}
+                >
+                  Opportunities
+                </span>
               </h2>
               
               <p className="mt-5 text-[#333] font-sans font-light leading-relaxed max-w-lg text-[18px]">

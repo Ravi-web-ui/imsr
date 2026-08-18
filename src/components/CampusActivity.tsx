@@ -75,7 +75,15 @@ export default function CampusActivity() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-medium text-white tracking-tight leading-[40px] md:leading-[50px]">
-              Campus <span className="text-zinc-200 font-serif italic font-light">Activity</span> & Student Life
+              Campus <span 
+                className="font-serif italic font-light"
+                style={{
+                  background: "linear-gradient(135deg, #42d392, #00629f)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text"
+                }}
+              >Activity</span> & Student Life
             </h2>
           </div>
 

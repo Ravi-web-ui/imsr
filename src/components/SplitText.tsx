@@ -12,9 +12,10 @@ interface SplitTextProps {
   text: string;
   className?: string;
   active?: boolean;
+  style?: React.CSSProperties;
 }
 
-export default function SplitText({ text, className = "", active = true }: SplitTextProps) {
+export default function SplitText({ text, className = "", active = true, style }: SplitTextProps) {
   const containerRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function SplitText({ text, className = "", active = true }: Split
   }, [text, active]);
 
   return (
-    <span ref={containerRef} className={`${className} inline-block overflow-hidden py-[2px]`}>
+    <span ref={containerRef} className={`${className} inline-block overflow-hidden py-[2px]`} style={style}>
       {text.split("").map((char, index) => (
         <span
           key={index}
